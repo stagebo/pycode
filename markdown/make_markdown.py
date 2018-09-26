@@ -52,6 +52,7 @@ def make_markdown(directory):
                 md.write('> 内容：%s\r\n' % target)
                 smd.write('### 标题：%s\r' % title)
                 smd.write('> 内容：%s\r\n' % target)
+                smd.write('\r\r\r')
                 print('> 内容：%s\r\n'%target)
 
 
