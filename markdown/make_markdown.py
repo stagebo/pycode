@@ -32,7 +32,7 @@ def make_markdown(directory):
             if os.path.isfile(path) and f.endswith('.py'):
                 md.write('## 文件：[%s](%s)\r' % (f, f))
                 dr = directory[directory.find('/')+1:]
-                smd.write('## 文件：[%s/%s](%s/%s)\r' % (dr, f,dr, f))
+                smd.write('### 文件：[%s/%s](%s/%s)\r' % (dr, f,dr, f))
                 print('## 文件：[%s](%s)\r'%(f,f))
                 target = ''
                 title = ''
