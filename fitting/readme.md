@@ -1,7 +1,6 @@
 ../fitting目录代码列表
 =====
 
-## 文件：[cross-correlation.py](cross-correlation.py)### 标题：> 内容：
 ## 文件：[data_html.py](data_html.py)### 标题：         data_html
 > 内容：       爬去网站天文台计算数据
 

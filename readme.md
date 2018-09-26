@@ -89,7 +89,6 @@ pycode 代码说明=====##  日常代码收集整理### 文件：[code_space/
 
 ### 文件：[douyu/hot.py](douyu/hot.py)> 内容：
 ### 文件：[douyu/web.py](douyu/web.py)> 内容：
-### 文件：[fitting/cross-correlation.py](fitting/cross-correlation.py)> 内容：
 ### 文件：[fitting/data_html.py](fitting/data_html.py)> 内容：       爬去网站天文台计算数据
 
 ### 文件：[fitting/fitting_by_function.py](fitting/fitting_by_function.py)> 内容：       根据函数型拟合
