@@ -7,3 +7,6 @@
 ## 文件：[zhifangtu.py](zhifangtu.py)### 标题：         zhifangtu
 > 内容：       绘制直方图
 
+## 文件：[zhifangtu_1.py](zhifangtu_1.py)### 标题：         zhifangtu
+> 内容：       绘制直方图_1
+

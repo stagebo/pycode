@@ -4,7 +4,7 @@
     File Name:     timer_test
     Author:        wyb
     Date:          2018/9/25 0025
-    Description:   
+    Description:   timmer 测试
 """
 import threading
 import time

@@ -4,7 +4,7 @@
     File Name:     bit_price
     Author:        wyb
     Date:          2018/8/31 0031
-    Description:   
+    Description:   获取比特币价格
 # code is far away from bugs with the god animal protecting
     I love animals. They taste delicious.
               ┏┓      ┏┓

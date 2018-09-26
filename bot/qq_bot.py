@@ -4,7 +4,7 @@
 #     File Name:     qq_bot
 #     Author:        wyb
 #     Date:          2018/8/3 0003
-#     Description:
+#     Description:   QQ机器人
 # """
 # __author__ = 'wyb'
 #

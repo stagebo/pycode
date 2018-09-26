@@ -1,3 +1,11 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+    File Name:     fitting_by_function
+    Author:        wyb
+    Date:          2018/9/25 0025
+    Description:   根据函数型拟合
+"""
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 import numpy as np

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 '''
-__target__ = 温馨测试
+__target__ = 微信测试
 '''
 from wxpy import *
 import requests

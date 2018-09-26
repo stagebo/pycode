@@ -4,7 +4,7 @@
     File Name:     req
     Author:        wyb
     Date:          2018/9/23 0023
-    Description:   
+    Description:   模拟挖矿请求
 """
 import requests
 import  json

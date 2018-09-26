@@ -1,4 +1,4 @@
-py_code 代码说明=====##  日常代码收集整理### 文件：[code_space/assert_test.py](code_space/assert_test.py)> 内容：Python assert 使用测试
+pycode 代码说明=====##  日常代码收集整理### 文件：[code_space/assert_test.py](code_space/assert_test.py)> 内容：Python assert 使用测试
 
 ### 文件：[code_space/Block.py](code_space/Block.py)> 内容：区块链初探 
 
@@ -6,7 +6,7 @@ py_code 代码说明=====##  日常代码收集整理### 文件：[code_space
 
 ### 文件：[code_space/check_chinese.py](code_space/check_chinese.py)> 内容：       判断字符串中是否有中文
 
-### 文件：[code_space/day_word.py](code_space/day_word.py)> 内容：金山每日一句
+### 文件：[code_space/day_word.py](code_space/day_word.py)> 内容：       获取金山每日一句
 
 ### 文件：[code_space/down_test.py](code_space/down_test.py)> 内容：下载测试
 
@@ -14,17 +14,18 @@ py_code 代码说明=====##  日常代码收集整理### 文件：[code_space
 
 ### 文件：[code_space/face_reg_server.py](code_space/face_reg_server.py)> 内容：面部识别服务器
 
-### 文件：[code_space/geetest_test.py](code_space/geetest_test.py)> 内容：
+### 文件：[code_space/geetest_test.py](code_space/geetest_test.py)> 内容：    
+
 ### 文件：[code_space/get_pwd_list.py](code_space/get_pwd_list.py)> 内容：
 
-### 文件：[code_space/HR.py](code_space/HR.py)> 内容：前端HR 面试测试题
+### 文件：[code_space/HR.py](code_space/HR.py)> 内容：       前端面试题
 
 ### 文件：[code_space/img2char.py](code_space/img2char.py)> 内容：图片转字符显示
 
 ### 文件：[code_space/location_test.py](code_space/location_test.py)> 内容：tensorflow 初探
 
 ### 文件：[code_space/mysql_test.py](code_space/mysql_test.py)> 内容：
-### 文件：[code_space/orm_test.py](code_space/orm_test.py)> 内容：       
+### 文件：[code_space/orm_test.py](code_space/orm_test.py)> 内容：       python ORM 测试
 
 ### 文件：[code_space/probability.py](code_space/probability.py)> 内容：       给定一个返回1和0的概率分别是p和1-p的函数，求实现一个返回0和1概率一样的函数
 
@@ -40,19 +41,19 @@ py_code 代码说明=====##  日常代码收集整理### 文件：[code_space
 
 ### 文件：[code_space/test.py](code_space/test.py)> 内容： 来自知乎
 
-### 文件：[code_space/timer_test.py](code_space/timer_test.py)> 内容：       
+### 文件：[code_space/timer_test.py](code_space/timer_test.py)> 内容：       timmer 测试
 
 ### 文件：[code_space/tornado_blog.py](code_space/tornado_blog.py)> 内容：Tornado 测试
 
 ### 文件：[code_space/write_excel.py](code_space/write_excel.py)> 内容： 写Excel文件
 
-### 文件：[code_space/wx_api.py](code_space/wx_api.py)> 内容：温馨测试
+### 文件：[code_space/wx_api.py](code_space/wx_api.py)> 内容：微信测试
 
 ### 文件：[code_space/wx_boot.py](code_space/wx_boot.py)> 内容：微信聊天机器人测试
 
 ### 文件：[code_space/__init__.py](code_space/__init__.py)> 内容：包说明
 
-### 文件：[code_test/annotation.py](code_test/annotation.py)> 内容：       
+### 文件：[code_test/annotation.py](code_test/annotation.py)> 内容：       注解测试
 
 ### 文件：[code_test/class_params_test.py](code_test/class_params_test.py)> 内容：
 ### 文件：[code_test/distribution.py](code_test/distribution.py)> 内容：直方图分布
@@ -89,9 +90,9 @@ py_code 代码说明=====##  日常代码收集整理### 文件：[code_space
 ### 文件：[douyu/hot.py](douyu/hot.py)> 内容：
 ### 文件：[douyu/web.py](douyu/web.py)> 内容：
 ### 文件：[fitting/cross-correlation.py](fitting/cross-correlation.py)> 内容：
-### 文件：[fitting/data_html.py](fitting/data_html.py)> 内容：       
+### 文件：[fitting/data_html.py](fitting/data_html.py)> 内容：       爬去网站天文台计算数据
 
-### 文件：[fitting/fitting_by_function.py](fitting/fitting_by_function.py)> 内容：拟合函数
+### 文件：[fitting/fitting_by_function.py](fitting/fitting_by_function.py)> 内容：       根据函数型拟合
 
 ### 文件：[fitting/fitting_by_function1.py](fitting/fitting_by_function1.py)> 内容：拟合函数
 
@@ -154,4 +155,6 @@ py_code 代码说明=====##  日常代码收集整理### 文件：[code_space
 ### 文件：[qq/ant.py](qq/ant.py)> 内容：       蚁群优化算法
 
 ### 文件：[qq/zhifangtu.py](qq/zhifangtu.py)> 内容：       绘制直方图
+
+### 文件：[qq/zhifangtu_1.py](qq/zhifangtu_1.py)> 内容：       绘制直方图_1
 

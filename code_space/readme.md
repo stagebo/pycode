@@ -10,7 +10,8 @@
 ## 文件：[check_chinese.py](check_chinese.py)### 标题：         check_chinese
 > 内容：       判断字符串中是否有中文
 
-## 文件：[day_word.py](day_word.py)### 标题：> 内容：金山每日一句
+## 文件：[day_word.py](day_word.py)### 标题：         req
+> 内容：       获取金山每日一句
 
 ## 文件：[down_test.py](down_test.py)### 标题：> 内容：下载测试
 
@@ -18,10 +19,13 @@
 
 ## 文件：[face_reg_server.py](face_reg_server.py)### 标题：> 内容：面部识别服务器
 
-## 文件：[geetest_test.py](geetest_test.py)### 标题：> 内容：
+## 文件：[geetest_test.py](geetest_test.py)### 标题：         req
+> 内容：    
+
 ## 文件：[get_pwd_list.py](get_pwd_list.py)### 标题：> 内容：
 
-## 文件：[HR.py](HR.py)### 标题：> 内容：前端HR 面试测试题
+## 文件：[HR.py](HR.py)### 标题：         req
+> 内容：       前端面试题
 
 ## 文件：[img2char.py](img2char.py)### 标题：> 内容：图片转字符显示
 
@@ -29,7 +33,7 @@
 
 ## 文件：[mysql_test.py](mysql_test.py)### 标题：> 内容：
 ## 文件：[orm_test.py](orm_test.py)### 标题：         orm_test
-> 内容：       
+> 内容：       python ORM 测试
 
 ## 文件：[probability.py](probability.py)### 标题：         probability
 > 内容：       给定一个返回1和0的概率分别是p和1-p的函数，求实现一个返回0和1概率一样的函数
@@ -47,13 +51,13 @@
 ## 文件：[test.py](test.py)### 标题：> 内容： 来自知乎
 
 ## 文件：[timer_test.py](timer_test.py)### 标题：         timer_test
-> 内容：       
+> 内容：       timmer 测试
 
 ## 文件：[tornado_blog.py](tornado_blog.py)### 标题：> 内容：Tornado 测试
 
 ## 文件：[write_excel.py](write_excel.py)### 标题：> 内容： 写Excel文件
 
-## 文件：[wx_api.py](wx_api.py)### 标题：> 内容：温馨测试
+## 文件：[wx_api.py](wx_api.py)### 标题：> 内容：微信测试
 
 ## 文件：[wx_boot.py](wx_boot.py)### 标题：> 内容：微信聊天机器人测试
 

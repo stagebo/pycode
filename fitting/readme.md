@@ -3,9 +3,10 @@
 
 ## 文件：[cross-correlation.py](cross-correlation.py)### 标题：> 内容：
 ## 文件：[data_html.py](data_html.py)### 标题：         data_html
-> 内容：       
+> 内容：       爬去网站天文台计算数据
 
-## 文件：[fitting_by_function.py](fitting_by_function.py)### 标题：> 内容：拟合函数
+## 文件：[fitting_by_function.py](fitting_by_function.py)### 标题：         fitting_by_function
+> 内容：       根据函数型拟合
 
 ## 文件：[fitting_by_function1.py](fitting_by_function1.py)### 标题：> 内容：拟合函数
 

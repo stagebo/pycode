@@ -4,7 +4,7 @@
     File Name:     blockchain
     Author:        wyb
     Date:          2018/9/23 0023
-    Description:   
+    Description:   区块链测试代码
 """
 import hashlib
 import json

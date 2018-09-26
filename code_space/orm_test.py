@@ -4,7 +4,7 @@
     File Name:     orm_test
     Author:        Administrator
     Date:          2018/7/25
-    Description:   
+    Description:   python ORM 测试
 # code is far away from bugs with the god animal protecting
     I love animals. They taste delicious.
               ┏┓      ┏┓

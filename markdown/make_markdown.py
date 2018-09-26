@@ -56,7 +56,7 @@ def make_markdown(directory):
 
 
 smd = open('../readme.md','w',encoding='utf-8')
-smd.write('py_code 代码说明\r')
+smd.write('pycode 代码说明\r')
 smd.write('=====\r')
 smd.write('##  日常代码收集整理\r')
 if __name__ == "__main__":
