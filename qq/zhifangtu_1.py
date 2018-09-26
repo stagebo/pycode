@@ -3,7 +3,7 @@
 """
     File Name:     zhifangtu
     Author:        wyb
-    Date:          2018/9/24 0024
+    Date:          2018/9/26 0024
     Description:   绘制直方图_1
 """
 import numpy as np

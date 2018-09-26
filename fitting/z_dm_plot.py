@@ -65,8 +65,8 @@ def func(x,a,b):
 
     return a*x + b
 # 获取拟合结果
-x = np.array([1,2,3,4])
-y2 = np.array([20,9,3,1])
+# x = np.array([1,2,3,4])
+# y2 = np.array([20,9,3,1])
 
 popt, pcov = curve_fit(func, x, y2)
 
@@ -94,6 +94,6 @@ plt.legend(loc=1)# 图例 指定legend的位置,读者可以自己help它的用�
 plt.title('')
 
 plt.show()
-plt.savefig('p2.png')
+# plt.savefig('p2.png')
 
 

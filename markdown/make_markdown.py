@@ -9,7 +9,7 @@ __target__ = '生成markdown文件，批量生成，通过读取文件内部的_
     I love animals. They taste delicious.
               ┏┓      ┏┓
             ┏┛┻━━━┛┻┓
-            ┃      ☃      ┃
+            ┃      ☃       ┃
             ┃  ┳┛  ┗┳  ┃
             ┃      ┻      ┃
             ┗━┓      ┏━┛
