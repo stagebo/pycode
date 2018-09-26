@@ -6,11 +6,11 @@
 ## 文件：[get_zhihu.py](get_zhihu.py)### 标题：         get_zhihu
 > 内容：       
 
-## 文件：[ip_proxy.py](ip_proxy.py)### 标题：> 内容： = IP代理访问
+## 文件：[ip_proxy.py](ip_proxy.py)### 标题：> 内容：IP代理访问
 
 ## 文件：[ip_test.py](ip_test.py)### 标题：> 内容：
 ## 文件：[login_douyu.py](login_douyu.py)### 标题：> 内容：
-## 文件：[login_tdqs.py](login_tdqs.py)### 标题：> 内容： = 登陆 tdqs
+## 文件：[login_tdqs.py](login_tdqs.py)### 标题：> 内容：登陆 tdqs
 
 ## 文件：[req.py](req.py)### 标题：         req
 > 内容：       

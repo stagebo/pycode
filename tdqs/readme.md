@@ -6,7 +6,7 @@
 
 ## 文件：[create_elec_data.py](create_elec_data.py)### 标题：> 内容：
 ## 文件：[create_geom_json.py](create_geom_json.py)### 标题： = ''
-> 内容： =  生成GEOMJSON文件
+> 内容： 生成GEOMJSON文件
 
 ## 文件：[create_id_number.py](create_id_number.py)### 标题：> 内容：
 ## 文件：[create_trd_table.py](create_trd_table.py)### 标题：> 内容：

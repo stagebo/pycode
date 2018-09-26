@@ -40,9 +40,9 @@ def make_markdown(directory):
                     lines = rd.readlines()
                     for l in lines:
                         if '__target__' in l and target == '':
-                            target = l.replace('__target__', '')
+                            target = l.replace('__target__ = ', '').replace('__target__', '')
                         if 'Description' in l and target == '':
-                            target = l.replace('Description:', '')
+                            target = l.replace('Description=', '').replace('Description:', '')
                         if '__title__' in l and target == '':
                             title = l.replace('__title__', '')
                         if 'File Name' in l and target == '':
@@ -52,7 +52,6 @@ def make_markdown(directory):
                 md.write('> 内容：%s\r\n' % target)
                 # smd.write('### 标题：%s\r' % title)
                 smd.write('> 内容：%s\r\n' % target)
-                smd.write('\r\r\r')
                 print('> 内容：%s\r\n'%target)
 
 
