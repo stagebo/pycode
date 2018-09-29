@@ -153,6 +153,8 @@ pycode 代码说明=====##  日常代码收集整理### 文件：[code_space/
 
 ### 文件：[qq/ant.py](qq/ant.py)> 内容：       蚁群优化算法
 
+### 文件：[qq/devide_oil.py](qq/devide_oil.py)> 内容：       小孩分油问题，容量分别为10 7 3 的三只油桶分出两桶5的油来
+
 ### 文件：[qq/zhifangtu.py](qq/zhifangtu.py)> 内容：       绘制直方图
 
 ### 文件：[qq/zhifangtu_1.py](qq/zhifangtu_1.py)> 内容：       绘制直方图_1

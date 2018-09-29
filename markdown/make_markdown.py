@@ -5,20 +5,6 @@ __title__ = ''
 __author__ = 'wyb'
 __mtime__ = '2018/7/5'
 __target__ = '生成markdown文件，批量生成，通过读取文件内部的__target__ 行来填写内容'
-# code is far away from bugs with the god animal protecting
-    I love animals. They taste delicious.
-              ┏┓      ┏┓
-            ┏┛┻━━━┛┻┓
-            ┃      ☃       ┃
-            ┃  ┳┛  ┗┳  ┃
-            ┃      ┻      ┃
-            ┗━┓      ┏━┛
-                ┃      ┗━━━┓
-                ┃  神兽保佑    ┣┓
-                ┃　永无BUG！   ┏┛
-                ┗┓┓┏━┳┓┏┛
-                  ┃┫┫  ┃┫┫
-                  ┗┻┛  ┗┻┛
 """
 import os
 
