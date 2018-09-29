@@ -8,8 +8,9 @@ __target__ = '生成markdown文件，批量生成，通过读取文件内部的_
 """
 import os
 
+idx = 1
 def make_markdown(directory):
-    global smd
+    global smd,idx
     with open(os.path.join(directory,'readme.md'),'w',encoding='utf-8') as md:
         md.write('%s目录代码列表\r\n=====\r\n\r\n'%directory)
         list = os.listdir(directory)  # 列出文件夹下所有的目录与文件
@@ -18,7 +19,8 @@ def make_markdown(directory):
             if os.path.isfile(path) and f.endswith('.py'):
                 md.write('## 文件：[%s](%s)\r' % (f, f))
                 dr = directory[directory.find('/')+1:]
-                smd.write('### 文件：[%s/%s](%s/%s)\r' % (dr, f,dr, f))
+                smd.write('### %s 文件：[%s/%s](%s/%s)\r' % (idx, dr, f,dr, f))
+                idx += 1
                 print('## 文件：[%s](%s)\r'%(f,f))
                 target = ''
                 title = ''
