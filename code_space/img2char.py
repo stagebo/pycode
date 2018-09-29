@@ -5,6 +5,8 @@ __target__ = 图片转字符显示
 from PIL import Image
 
 codeLib = '''@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,"^`'. '''#生成字符画所需的字符集
+codeLib = '''                       LCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,"^`'. '''#生成字符画所需的字符集
+codeLib = '''@dOv\. '''#生成字符画所需的字符集
 count = len(codeLib)
 
 def transform1(image_file):
@@ -28,12 +30,14 @@ def transform2(image_file):
     return codePic
 
 
-fp = open(u'C:\\Users\\wyb\\Desktop\\2.png','rb')
+fp = open(u'F:\\Users\\wyb\\Desktop\\123.jpg','rb')
 image_file = Image.open(fp)
 image_file=image_file.resize((int(image_file.size[0]*0.75), int(image_file.size[1]*0.5)))#调整图片大小
 print (u'Info:',image_file.size[0],' ',image_file.size[1],' ',count)
 
 tmp = open('tmp.txt','w')
 chars = transform1(image_file)
+print(chars)
 tmp.write(chars)
 tmp.close()
+
