@@ -4,3 +4,15 @@ port=5432
 dbname=d
 user=postgres
 pwd=123456
+
+[sms]
+# 短信应用SDK AppID
+appid=1111
+# 短信应用SDK AppKey
+appkey=1111
+# 需要发送短信的手机号码
+phone_numbers = 111
+# 短信模板ID，需要在短信应用中申请
+template_id = 111
+# 签名
+sms_sign=111
