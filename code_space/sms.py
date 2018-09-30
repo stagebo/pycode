@@ -24,7 +24,7 @@ appkey = cf.get("sms", "appkey")
 template_id =  cf.getint("sms", "template_id")  # NOTE: 这里的模板ID`7839`只是一个示例，真实的模板ID需要在短信控制台中申请
 
 # 签名
-sms_sign = "眼若秋波"  # NOTE: 这里的签名"腾讯云"只是一个示例，真实的签名需要在短信控制台中申请，另外签名参数使用的是`签名内容`，而不是`签名ID`
+sms_sign = cf.get("sms", "sms_sign")  # NOTE: 这里的签名"腾讯云"只是一个示例，真实的签名需要在短信控制台中申请，另外签名参数使用的是`签名内容`，而不是`签名ID`
 
 def send_msg(phone_num,msg):
     sms_type = 0  # Enum{0: 普通短信, 1: 营销短信}
