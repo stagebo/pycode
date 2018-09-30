@@ -48,6 +48,9 @@
 
 ## 文件：[script.py](script.py)### 标题：> 内容： =
 
+## 文件：[sms.py](sms.py)### 标题：         sms
+> 内容：       发送短信
+
 ## 文件：[test.py](test.py)### 标题：> 内容： 来自知乎
 
 ## 文件：[timer_test.py](timer_test.py)### 标题：         timer_test
