@@ -1,11 +1,11 @@
 ../qq目录代码列表
 =====
 
-## 文件：[123.py](123.py)### 标题：         123
-> 内容：       
-
 ## 文件：[ant.py](ant.py)### 标题：         ant
 > 内容：       蚁群优化算法
+
+## 文件：[deep_oil_1.py](deep_oil_1.py)### 标题：         deep_oil_1
+> 内容：       深度优先搜索
 
 ## 文件：[depth_oil.py](depth_oil.py)### 标题：         depth_oil
 > 内容：       深度优先搜索分油解
@@ -15,6 +15,9 @@
 
 ## 文件：[divi_oil.py](divi_oil.py)### 标题：         divi_oil
 > 内容：       广度优先搜索分油解
+
+## 文件：[width_oil_1.py](width_oil_1.py)### 标题：         width_oil_1
+> 内容：       广度优先搜索
 
 ## 文件：[zhifangtu.py](zhifangtu.py)### 标题：         zhifangtu
 > 内容：       绘制直方图

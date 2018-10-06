@@ -88,84 +88,88 @@ pycode 代码说明=====##  日常代码收集整理### 1 文件：[code_spac
 ### 46 文件：[code_test/vibora_client.py](code_test/vibora_client.py)> 内容：       
 
 ### 47 文件：[code_test/vibora_web.py](code_test/vibora_web.py)> 内容：
-### 48 文件：[code_test/__init__.py](code_test/__init__.py)> 内容：
-### 49 文件：[douyu/config.py](douyu/config.py)> 内容：爬虫配置文件
+### 48 文件：[code_test/yield_test.py](code_test/yield_test.py)> 内容：       yield 使用测试
 
-### 50 文件：[douyu/hot.py](douyu/hot.py)> 内容：
-### 51 文件：[douyu/web.py](douyu/web.py)> 内容：
-### 52 文件：[fitting/data_html.py](fitting/data_html.py)> 内容：       爬去网站天文台计算数据
+### 49 文件：[code_test/__init__.py](code_test/__init__.py)> 内容：
+### 50 文件：[douyu/config.py](douyu/config.py)> 内容：爬虫配置文件
 
-### 53 文件：[fitting/fitting_by_function.py](fitting/fitting_by_function.py)> 内容：       根据函数型拟合
+### 51 文件：[douyu/hot.py](douyu/hot.py)> 内容：
+### 52 文件：[douyu/web.py](douyu/web.py)> 内容：
+### 53 文件：[fitting/data_html.py](fitting/data_html.py)> 内容：       爬去网站天文台计算数据
 
-### 54 文件：[fitting/fitting_by_function1.py](fitting/fitting_by_function1.py)> 内容：拟合函数
+### 54 文件：[fitting/fitting_by_function.py](fitting/fitting_by_function.py)> 内容：       根据函数型拟合
 
-### 55 文件：[fitting/fitting_distribution.py](fitting/fitting_distribution.py)> 内容：分布型拟合
+### 55 文件：[fitting/fitting_by_function1.py](fitting/fitting_by_function1.py)> 内容：拟合函数
 
-### 56 文件：[fitting/fitting_log.py](fitting/fitting_log.py)> 内容：分布型拟合
+### 56 文件：[fitting/fitting_distribution.py](fitting/fitting_distribution.py)> 内容：分布型拟合
 
-### 57 文件：[fitting/fitting_power.py](fitting/fitting_power.py)> 内容：
-### 58 文件：[fitting/polynomial.py](fitting/polynomial.py)> 内容：多项式拟合
+### 57 文件：[fitting/fitting_log.py](fitting/fitting_log.py)> 内容：分布型拟合
 
-### 59 文件：[fitting/qq_hist.py](fitting/qq_hist.py)> 内容：直方图数据生成
+### 58 文件：[fitting/fitting_power.py](fitting/fitting_power.py)> 内容：
+### 59 文件：[fitting/polynomial.py](fitting/polynomial.py)> 内容：多项式拟合
 
-### 60 文件：[fitting/z_dm_plot.py](fitting/z_dm_plot.py)> 内容：分布型拟合
+### 60 文件：[fitting/qq_hist.py](fitting/qq_hist.py)> 内容：直方图数据生成
 
-### 61 文件：[spider/cn_blog_01.py](spider/cn_blog_01.py)> 内容：
-### 62 文件：[spider/config.py](spider/config.py)> 内容：
-### 63 文件：[spider/get_zhihu.py](spider/get_zhihu.py)> 内容：       
+### 61 文件：[fitting/z_dm_plot.py](fitting/z_dm_plot.py)> 内容：分布型拟合
 
-### 64 文件：[spider/ip_proxy.py](spider/ip_proxy.py)> 内容：IP代理访问
+### 62 文件：[spider/cn_blog_01.py](spider/cn_blog_01.py)> 内容：
+### 63 文件：[spider/config.py](spider/config.py)> 内容：
+### 64 文件：[spider/get_zhihu.py](spider/get_zhihu.py)> 内容：       
 
-### 65 文件：[spider/ip_test.py](spider/ip_test.py)> 内容：
-### 66 文件：[spider/login_douyu.py](spider/login_douyu.py)> 内容：
-### 67 文件：[spider/login_tdqs.py](spider/login_tdqs.py)> 内容：登陆 tdqs
+### 65 文件：[spider/ip_proxy.py](spider/ip_proxy.py)> 内容：IP代理访问
 
-### 68 文件：[spider/req.py](spider/req.py)> 内容：       
+### 66 文件：[spider/ip_test.py](spider/ip_test.py)> 内容：
+### 67 文件：[spider/login_douyu.py](spider/login_douyu.py)> 内容：
+### 68 文件：[spider/login_tdqs.py](spider/login_tdqs.py)> 内容：登陆 tdqs
 
-### 69 文件：[spider/urmall_message.py](spider/urmall_message.py)> 内容：
-### 70 文件：[spider/word_cloud.py](spider/word_cloud.py)> 内容：       生成简易的词云图片
+### 69 文件：[spider/req.py](spider/req.py)> 内容：       
 
-### 71 文件：[spider/xiaoqiang.py](spider/xiaoqiang.py)> 内容：
-### 72 文件：[ssh_code/ssh_cmd.py](ssh_code/ssh_cmd.py)> 内容：       服务器密码，这个好玩，参考目录下sec.txt 和 users.txt 文件
+### 70 文件：[spider/urmall_message.py](spider/urmall_message.py)> 内容：
+### 71 文件：[spider/word_cloud.py](spider/word_cloud.py)> 内容：       生成简易的词云图片
 
-### 73 文件：[tdqs/clear_data.py](tdqs/clear_data.py)> 内容： 清除数据库垃圾数据
+### 72 文件：[spider/xiaoqiang.py](spider/xiaoqiang.py)> 内容：
+### 73 文件：[ssh_code/ssh_cmd.py](ssh_code/ssh_cmd.py)> 内容：       服务器密码，这个好玩，参考目录下sec.txt 和 users.txt 文件
 
-### 74 文件：[tdqs/create_elec_data.py](tdqs/create_elec_data.py)> 内容：
-### 75 文件：[tdqs/create_geom_json.py](tdqs/create_geom_json.py)> 内容： 生成GEOMJSON文件
+### 74 文件：[tdqs/clear_data.py](tdqs/clear_data.py)> 内容： 清除数据库垃圾数据
 
-### 76 文件：[tdqs/create_id_number.py](tdqs/create_id_number.py)> 内容：
-### 77 文件：[tdqs/create_trd_table.py](tdqs/create_trd_table.py)> 内容：
-### 78 文件：[tdqs/data_ext.py](tdqs/data_ext.py)> 内容：
-### 79 文件：[tdqs/db.py](tdqs/db.py)> 内容：       
+### 75 文件：[tdqs/create_elec_data.py](tdqs/create_elec_data.py)> 内容：
+### 76 文件：[tdqs/create_geom_json.py](tdqs/create_geom_json.py)> 内容： 生成GEOMJSON文件
 
-### 80 文件：[tdqs/find_merge.py](tdqs/find_merge.py)> 内容： 提取合并单元格信息
+### 77 文件：[tdqs/create_id_number.py](tdqs/create_id_number.py)> 内容：
+### 78 文件：[tdqs/create_trd_table.py](tdqs/create_trd_table.py)> 内容：
+### 79 文件：[tdqs/data_ext.py](tdqs/data_ext.py)> 内容：
+### 80 文件：[tdqs/db.py](tdqs/db.py)> 内容：       
 
-### 81 文件：[tdqs/merge_in_short.py](tdqs/merge_in_short.py)> 内容：  合并单元格的合并信息
+### 81 文件：[tdqs/find_merge.py](tdqs/find_merge.py)> 内容： 提取合并单元格信息
 
-### 82 文件：[tdqs/read_conf.py](tdqs/read_conf.py)> 内容： 读取配置文件
+### 82 文件：[tdqs/merge_in_short.py](tdqs/merge_in_short.py)> 内容：  合并单元格的合并信息
 
-### 83 文件：[tdqs/read_shp.py](tdqs/read_shp.py)> 内容： 读取shape文件
+### 83 文件：[tdqs/read_conf.py](tdqs/read_conf.py)> 内容： 读取配置文件
 
-### 84 文件：[tdqs/transposition_table.py](tdqs/transposition_table.py)> 内容：
-### 85 文件：[tornado/business.py](tornado/business.py)> 内容：#   接口服务
+### 84 文件：[tdqs/read_shp.py](tdqs/read_shp.py)> 内容： 读取shape文件
 
-### 86 文件：[tornado/db.py](tornado/db.py)> 内容：#   数据库访问
+### 85 文件：[tdqs/transposition_table.py](tdqs/transposition_table.py)> 内容：
+### 86 文件：[tornado/business.py](tornado/business.py)> 内容：#   接口服务
 
-### 87 文件：[tornado/test.py](tornado/test.py)> 内容： 测试脚本
+### 87 文件：[tornado/db.py](tornado/db.py)> 内容：#   数据库访问
 
-### 88 文件：[tornado/web.py](tornado/web.py)> 内容：# Tornado实现web程序异步访问
+### 88 文件：[tornado/test.py](tornado/test.py)> 内容： 测试脚本
 
-### 89 文件：[qq/123.py](qq/123.py)> 内容：       
+### 89 文件：[tornado/web.py](tornado/web.py)> 内容：# Tornado实现web程序异步访问
 
 ### 90 文件：[qq/ant.py](qq/ant.py)> 内容：       蚁群优化算法
 
-### 91 文件：[qq/depth_oil.py](qq/depth_oil.py)> 内容：       深度优先搜索分油解
+### 91 文件：[qq/deep_oil_1.py](qq/deep_oil_1.py)> 内容：       深度优先搜索
 
-### 92 文件：[qq/devide_oil.py](qq/devide_oil.py)> 内容：       小孩分油问题，容量分别为10 7 3 的三只油桶分出两桶5的油来
+### 92 文件：[qq/depth_oil.py](qq/depth_oil.py)> 内容：       深度优先搜索分油解
 
-### 93 文件：[qq/divi_oil.py](qq/divi_oil.py)> 内容：       广度优先搜索分油解
+### 93 文件：[qq/devide_oil.py](qq/devide_oil.py)> 内容：       小孩分油问题，容量分别为10 7 3 的三只油桶分出两桶5的油来
 
-### 94 文件：[qq/zhifangtu.py](qq/zhifangtu.py)> 内容：       绘制直方图
+### 94 文件：[qq/divi_oil.py](qq/divi_oil.py)> 内容：       广度优先搜索分油解
 
-### 95 文件：[qq/zhifangtu_1.py](qq/zhifangtu_1.py)> 内容：       绘制直方图_1
+### 95 文件：[qq/width_oil_1.py](qq/width_oil_1.py)> 内容：       广度优先搜索
+
+### 96 文件：[qq/zhifangtu.py](qq/zhifangtu.py)> 内容：       绘制直方图
+
+### 97 文件：[qq/zhifangtu_1.py](qq/zhifangtu_1.py)> 内容：       绘制直方图_1
 
