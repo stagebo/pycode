@@ -132,44 +132,51 @@ pycode 代码说明=====##  日常代码收集整理### 1 文件：[code_spac
 
 ### 74 文件：[tdqs/clear_data.py](tdqs/clear_data.py)> 内容： 清除数据库垃圾数据
 
-### 75 文件：[tdqs/create_elec_data.py](tdqs/create_elec_data.py)> 内容：
+### 75 文件：[tdqs/create_elec_data.py](tdqs/create_elec_data.py)> 内容：       创建电量实时数据
+
 ### 76 文件：[tdqs/create_geom_json.py](tdqs/create_geom_json.py)> 内容： 生成GEOMJSON文件
 
-### 77 文件：[tdqs/create_id_number.py](tdqs/create_id_number.py)> 内容：
-### 78 文件：[tdqs/create_trd_table.py](tdqs/create_trd_table.py)> 内容：
-### 79 文件：[tdqs/data_ext.py](tdqs/data_ext.py)> 内容：
-### 80 文件：[tdqs/db.py](tdqs/db.py)> 内容：       
+### 77 文件：[tdqs/create_id_number.py](tdqs/create_id_number.py)> 内容：       身份证构造器
 
-### 81 文件：[tdqs/find_merge.py](tdqs/find_merge.py)> 内容： 提取合并单元格信息
+### 78 文件：[tdqs/create_tem_data.py](tdqs/create_tem_data.py)> 内容：       创建温度实时数据
 
-### 82 文件：[tdqs/merge_in_short.py](tdqs/merge_in_short.py)> 内容：  合并单元格的合并信息
+### 79 文件：[tdqs/create_trd_table.py](tdqs/create_trd_table.py)> 内容：       创建实时数据表格
 
-### 83 文件：[tdqs/read_conf.py](tdqs/read_conf.py)> 内容： 读取配置文件
+### 80 文件：[tdqs/data_ext.py](tdqs/data_ext.py)> 内容：
+### 81 文件：[tdqs/db.py](tdqs/db.py)> 内容：       连接postgresql数据库
 
-### 84 文件：[tdqs/read_shp.py](tdqs/read_shp.py)> 内容： 读取shape文件
+### 82 文件：[tdqs/find_merge.py](tdqs/find_merge.py)> 内容： 提取合并单元格信息
 
-### 85 文件：[tdqs/transposition_table.py](tdqs/transposition_table.py)> 内容：
-### 86 文件：[tornado/business.py](tornado/business.py)> 内容：#   接口服务
+### 83 文件：[tdqs/merge_in_short.py](tdqs/merge_in_short.py)> 内容：  合并单元格的合并信息
 
-### 87 文件：[tornado/db.py](tornado/db.py)> 内容：#   数据库访问
+### 84 文件：[tdqs/read_conf.py](tdqs/read_conf.py)> 内容： 读取配置文件
 
-### 88 文件：[tornado/test.py](tornado/test.py)> 内容： 测试脚本
+### 85 文件：[tdqs/read_shp.py](tdqs/read_shp.py)> 内容： 读取shape文件
 
-### 89 文件：[tornado/web.py](tornado/web.py)> 内容：# Tornado实现web程序异步访问
+### 86 文件：[tdqs/transposition_table.py](tdqs/transposition_table.py)> 内容：
+### 87 文件：[tornado/business.py](tornado/business.py)> 内容：#   接口服务
 
-### 90 文件：[qq/ant.py](qq/ant.py)> 内容：       蚁群优化算法
+### 88 文件：[tornado/db.py](tornado/db.py)> 内容：#   数据库访问
 
-### 91 文件：[qq/deep_oil_1.py](qq/deep_oil_1.py)> 内容：       深度优先搜索
+### 89 文件：[tornado/test.py](tornado/test.py)> 内容： 测试脚本
 
-### 92 文件：[qq/depth_oil.py](qq/depth_oil.py)> 内容：       深度优先搜索分油解
+### 90 文件：[tornado/web.py](tornado/web.py)> 内容：# Tornado实现web程序异步访问
 
-### 93 文件：[qq/devide_oil.py](qq/devide_oil.py)> 内容：       小孩分油问题，容量分别为10 7 3 的三只油桶分出两桶5的油来
+### 91 文件：[qq/ant.py](qq/ant.py)> 内容：       蚁群优化算法
 
-### 94 文件：[qq/divi_oil.py](qq/divi_oil.py)> 内容：       广度优先搜索分油解
+### 92 文件：[qq/deep_oil_1.py](qq/deep_oil_1.py)> 内容：       深度优先搜索
 
-### 95 文件：[qq/width_oil_1.py](qq/width_oil_1.py)> 内容：       广度优先搜索
+### 93 文件：[qq/depth_oil.py](qq/depth_oil.py)> 内容：       深度优先搜索分油解
 
-### 96 文件：[qq/zhifangtu.py](qq/zhifangtu.py)> 内容：       绘制直方图
+### 94 文件：[qq/devide_oil.py](qq/devide_oil.py)> 内容：       小孩分油问题，容量分别为10 7 3 的三只油桶分出两桶5的油来
 
-### 97 文件：[qq/zhifangtu_1.py](qq/zhifangtu_1.py)> 内容：       绘制直方图_1
+### 95 文件：[qq/divi_oil.py](qq/divi_oil.py)> 内容：       广度优先搜索分油解
+
+### 96 文件：[qq/split_image.py](qq/split_image.py)> 内容：       
+
+### 97 文件：[qq/width_oil_1.py](qq/width_oil_1.py)> 内容：       广度优先搜索
+
+### 98 文件：[qq/zhifangtu.py](qq/zhifangtu.py)> 内容：       绘制直方图
+
+### 99 文件：[qq/zhifangtu_1.py](qq/zhifangtu_1.py)> 内容：       绘制直方图_1
 

@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+"""
+    Description:   创建实时数据表格
+"""
 import db
 import datetime
 import os

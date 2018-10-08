@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+"""
+    Description:   创建电量实时数据
+"""
 import db
 import datetime
 import os
@@ -47,10 +49,11 @@ def create_data():
             jd = data_temp%(e1,e2,tk)
             sql = "delete from %s where f_write_time = '%s';insert into %s (f_write_time,f_json_data) values('%s','%s')"%(tablename,tk,tablename,tk,jd)
             print(tk)
-            db.execute(sql)
+            db.execute(sql,())
 
 if __name__ == "__main__":
     print("main")
-    create_data()
+    db.execute("delete from %s where f_write_time > %s"%("trd_2018_1_1_m",datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")),())
+    # create_data()
 
     file.close()

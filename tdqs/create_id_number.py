@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+"""
+    Description:   身份证构造器
+"""
 import datetime
 __author__ = 'wyb'
 def create(brithday,number,area_code = [5,2,0,1,1,2]):

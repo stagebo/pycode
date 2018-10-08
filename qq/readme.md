@@ -16,6 +16,9 @@
 ## 文件：[divi_oil.py](divi_oil.py)### 标题：         divi_oil
 > 内容：       广度优先搜索分油解
 
+## 文件：[split_image.py](split_image.py)### 标题：         split_image
+> 内容：       
+
 ## 文件：[width_oil_1.py](width_oil_1.py)### 标题：         width_oil_1
 > 内容：       广度优先搜索
 

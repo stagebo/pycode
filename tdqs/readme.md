@@ -4,15 +4,20 @@
 ## 文件：[clear_data.py](clear_data.py)### 标题： = ''
 > 内容： 清除数据库垃圾数据
 
-## 文件：[create_elec_data.py](create_elec_data.py)### 标题：> 内容：
+## 文件：[create_elec_data.py](create_elec_data.py)### 标题：> 内容：       创建电量实时数据
+
 ## 文件：[create_geom_json.py](create_geom_json.py)### 标题： = ''
 > 内容： 生成GEOMJSON文件
 
-## 文件：[create_id_number.py](create_id_number.py)### 标题：> 内容：
-## 文件：[create_trd_table.py](create_trd_table.py)### 标题：> 内容：
+## 文件：[create_id_number.py](create_id_number.py)### 标题：> 内容：       身份证构造器
+
+## 文件：[create_tem_data.py](create_tem_data.py)### 标题：> 内容：       创建温度实时数据
+
+## 文件：[create_trd_table.py](create_trd_table.py)### 标题：> 内容：       创建实时数据表格
+
 ## 文件：[data_ext.py](data_ext.py)### 标题：> 内容：
 ## 文件：[db.py](db.py)### 标题：         pdb
-> 内容：       
+> 内容：       连接postgresql数据库
 
 ## 文件：[find_merge.py](find_merge.py)### 标题： = ''
 > 内容： 提取合并单元格信息

@@ -4,12 +4,9 @@
     File Name:     pdb
     Author:        wyb
     Date:          2018/9/24 0024
-    Description:   
+    Description:   连接postgresql数据库
 """
-'''
-__target__ 连接postgresql数据库
 
-'''
 import psycopg2
 import configparser
 import read_conf
@@ -32,7 +29,7 @@ def open(dbname):
 
 def execute(sql,*args, **kwargs):
     cur = conn.cursor()
-    cur.execute(sql,args,kwargs)
+    cur.execute(sql,args)
     # print("Table created successfully")
     conn.commit()
     return cur
@@ -43,7 +40,7 @@ def query_dict(sql,*args, **kwargs):
     try:
         cursor = conn.cursor()
         # print(dir(cursor))
-        cursor.execute(sql,*args, **kwargs)
+        cursor.execute(sql,args,)
         refdata = [dict((cursor.description[i][0], str(value)) for i, value in enumerate(row)) for row in cursor.fetchall()]
     except psycopg2.Error as e:
         conn.rollback()
