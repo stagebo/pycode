@@ -40,7 +40,7 @@ def read_config(cf):
 if __name__ == "__main__":
 
     cf = configparser.ConfigParser()
-    cf.read("../app.conf")
+    cf.read("../app.conf",encoding='utf-8')
     rt = read_config(cf)
     print(rt)
     print("main")

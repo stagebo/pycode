@@ -11,7 +11,7 @@ import psycopg2
 import configparser
 import read_conf
 cf = configparser.ConfigParser()
-cf.read("../application.conf")
+cf.read("../application.conf",encoding='utf-8')
 rt = read_conf.read_config(cf)
 
 dbhost = rt['host']
