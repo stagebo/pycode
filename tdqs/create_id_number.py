@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
     Description:   身份证构造器
@@ -36,19 +36,14 @@ def create(brithday,number,area_code = [5,2,0,1,1,2]):
     num.append(mod_keys[mod])
     return num
 if __name__ == "__main__":
-    idn = create(datetime.datetime(1994, 12, 27, 0, 0, 0), 108)
-    print(''.join([str(i) for i in idn]))
-
-    idn = create(datetime.datetime(1994, 12, 27, 0, 0, 0), 108)
-    print(''.join([str(i) for i in idn]))
-    print("main")
+    import datetime
     bri = datetime.datetime(1994,12,27,0,0,0)
     lines = []
-    for i in range(100):
+    for i in range(200):
         bri = bri + datetime.timedelta(days=1)
         idn,idm = create(bri,111),create(bri,102)
         idns,idms = ''.join([str(i) for i in idn]),''.join([str(i) for i in idm])
-        line = "%s    %s \r"%(idns,idms)
+        line = "%s\n%s\n"%(idns,idms)
         print(line,end='')
         lines.append(line)
     with open('idnumber.txt','w') as file:

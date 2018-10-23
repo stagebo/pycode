@@ -2,3 +2,8 @@
 __pycache__
 app.conf
 application.conf
+
+tdqs/geomjson
+tdqs/idnumber.txt
+
+data/oil_half_width_answer.txt

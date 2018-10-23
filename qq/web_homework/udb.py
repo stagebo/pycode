@@ -1,0 +1,65 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+    File Name:     udb
+    Author:        wyb
+    Date:          2018/10/23 0023
+    Description:   模拟数据库
+"""
+import datetime
+
+# 最大密码错误次数
+MAX_ERROR_TIME = 3
+
+
+users = {
+    'qq':{
+        'username':'qq',
+        'pwd':'123',
+        'err_count':0,
+        'last_login_time':None
+    }
+}
+
+def user_exist(username):
+    return True if(username in users.keys())else False
+
+def get_user(username):
+    return users[username] if(username in users.keys())else None
+
+def get_user_list():
+    return [users[k] for k in users.keys()]
+
+def check_password(username,password):
+    print(username,password)
+    if username not in users.keys():
+        return -1
+    if users[username]['err_count'] >= MAX_ERROR_TIME:
+        return -3
+    if str(password) !=  users[username]['pwd']:
+        users[username]['err_count'] += 1
+        return -2
+    users[username]['err_count'] = 0
+    users[username]['last_login_time'] = datetime.datetime.now()
+    return 0
+
+def add_user(username,password):
+    if username in users.keys():
+        return False
+    users[username] = {'username': username, 'pwd': password, 'err_count': 0, 'last_login_time': None    }
+    return True
+
+def delete_user(username):
+    if username in users.keys():
+        del users[username]
+
+def update_password(username,password):
+    if username not in users.keys():
+        return False
+    users[username]['pwd'] = password
+    return True
+
+
+if __name__ == "__main__":
+    print(check_password('qq', '123'))
+    print("main")

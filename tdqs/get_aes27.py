@@ -31,8 +31,7 @@ def encrypt2(text):
 
 def decrypt2(text):
      key ='1234567890000000'
-     # key = 'c32ad1415f6c89fee76d8457c31efb4b'
-     iv =  '1234567890000000'
+     iv =  key
      msg = binascii.a2b_hex(text)
      cipher2 = AES.new(key,AES.MODE_CBC,iv)
      decrypt_msg = cipher2.decrypt(msg)

@@ -49,7 +49,19 @@ smd.write('=====\r')
 smd.write('##  日常代码收集整理\r')
 if __name__ == "__main__":
     print("main")
-    mds = ['../code_space','../code_test','../data','../douyu','../fitting','../spider','../ssh_code','../tdqs','../tornado','../qq']
+    mds = [
+        '../code_space',
+        '../code_test',
+        '../data',
+        '../douyu',
+        '../fitting',
+        '../spider',
+        '../ssh_code',
+        '../tdqs',
+        '../tornado',
+        '../qq',
+        '../qq/web_homework'
+           ]
     for d in mds:
         make_markdown(d)
 
