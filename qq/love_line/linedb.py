@@ -60,6 +60,29 @@ def update_password(username,password):
     users[username]['pwd'] = password
     return True
 
+lines = [
+    {
+        'title':'大连飞天津',
+        'content':'秋秋来天津旅游',
+        'href':'#',
+        'date':'2017-5-28'
+    },{
+        'title':'天津飞大连',
+        'content':'波波去大连接秋秋毕业',
+        'href':'#',
+        'date':'2017-6-22'
+    },{
+        'title':'大连飞天津',
+        'content':'',
+        'href':'#',
+        'date':'2017-6-27'
+    }
+]
+
+lines = sorted(lines, key=lambda line: line['date'])
+
+def get_lines():
+    return lines
 
 if __name__ == "__main__":
     print(check_password('qq', '123'))
