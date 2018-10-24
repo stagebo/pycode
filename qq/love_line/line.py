@@ -8,10 +8,13 @@
 """
 import linedb
 import json
+import datetime
+import uuid
 
 from flask import Flask, url_for,request,render_template
 app = Flask(__name__)
 
+VERSION = uuid.uuid1()
 @app.route('/')
 def hello_world():
     error = None
@@ -26,7 +29,7 @@ def hello_world():
             error = 'max_err number!'
         else:
             error = 'ERROR'
-    return render_template('index.html', lines=linedb.get_lines())
+    return render_template('index.html', lines=linedb.get_lines(),uuid=VERSION)
 
 @app.errorhandler(404)
 def page_not_found(error):
