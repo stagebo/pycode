@@ -81,6 +81,23 @@ lines = [
         'img':'h'
     }
 ]
+# 2017-5-28|大连飞天津|秋秋来天津旅游|#|q
+lines = []
+with open('data.txt','r',encoding='utf-8') as  lines_data:
+    ls = lines_data.readlines()
+    for l in ls:
+        ds = l.replace('\n','').replace('\n\r','').replace('\r','').split('|')
+        if len(ds) < 3:
+            continue
+        date,title,content,href,img = ds
+        item = {
+        'title':title,
+        'content':content,
+        'href':href,
+        'date':date,
+        'img':img
+        }
+        lines.append(item)
 
 lines = sorted(lines, key=lambda line: line['date'])
 
@@ -88,5 +105,6 @@ def get_lines():
     return lines
 
 if __name__ == "__main__":
-    print(check_password('qq', '123'))
+    # print(check_password('qq', '123'))
+    print(lines)
     print("main")
