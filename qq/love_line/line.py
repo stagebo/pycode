@@ -38,7 +38,7 @@ def page_not_found(error):
     return render_template('404.html'), 404
 
 def is_linux():
-    return True if ("Linux" in platform.platform()) else False
+    return True if ("Linux" in platform.system()) else False
 
 if __name__ == '__main__':
     is_debug = False if(is_linux())else True
