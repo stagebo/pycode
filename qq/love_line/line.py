@@ -17,6 +17,10 @@ from flask import Flask, url_for,request,render_template
 app = Flask(__name__)
 
 VERSION = uuid.uuid1()
+
+@app.route('/get_data')
+def get_data():
+    return json.dumps(linedb.get_lines())
 @app.route('/')
 def hello_world():
     error = None
@@ -36,6 +40,7 @@ def hello_world():
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template('404.html'), 404
+
 
 def is_linux():
     return True if ("Linux" in platform.system()) else False

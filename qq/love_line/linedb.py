@@ -99,12 +99,13 @@ with open('data.txt','r',encoding='utf-8') as  lines_data:
         }
         lines.append(item)
 
-lines = sorted(lines, key=lambda line: line['date'])
+lines = sorted(lines, key=lambda line: datetime.datetime.strptime(line['date'],'%Y-%m-%d'))
 
 def get_lines():
     return lines
 
 if __name__ == "__main__":
     # print(check_password('qq', '123'))
-    print(lines)
+    for line in lines:
+        print(line['date'])
     print("main")
