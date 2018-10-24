@@ -60,7 +60,8 @@ if __name__ == "__main__":
         '../tdqs',
         '../tornado',
         '../qq',
-        '../qq/web_homework'
+        '../qq/web_homework',
+        '../qq/love_line'
            ]
     for d in mds:
         make_markdown(d)
