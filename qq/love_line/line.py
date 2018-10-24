@@ -16,7 +16,7 @@ import platform
 from flask import Flask, url_for,request,render_template
 app = Flask(__name__)
 
-VERSION = datetime.datetime.strftime("%Y%m%d%H%M%S")
+VERSION = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
 
 @app.route('/get_data')
 def get_data():
