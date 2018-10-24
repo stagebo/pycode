@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Our Stories</title>
 <!--<link rel="stylesheet" href="http://www.helloweba.com/demo/css/main.css" />-->
-<link rel="stylesheet" href="static/style.css" />
+<link rel="stylesheet" href="static/style.css?_=1" />
 <style type="text/css">
 h1.top_title{border-bottom:none;background:none;text-align:center;line-height:45px; font-size:32px}
 h1.top_title span{font-size:18px; color:#666;font-weight:800}
@@ -35,7 +35,7 @@ h1.top_title span{font-size:18px; color:#666;font-weight:800}
 	{% for line in lines %}
     <div class="cd-timeline-block">
 		<div class="cd-timeline-img cd-picture">
-			<img src="static/img/cd-icon-picture.svg" alt="Picture">
+			<img src="static/img/{{line['img']}}.png" alt="Picture">
 		</div>
 
 		<div class="cd-timeline-content">
@@ -49,7 +49,7 @@ h1.top_title span{font-size:18px; color:#666;font-weight:800}
 </section>
 
 <div id="footer">
-    <p>Powered by helloweba.com <a href="http://www.helloweba.com" target="_blank">www.helloweba.com</a></p>
+    <p>Powered by <a href="http://www.helloweba.com" target="_blank">www.helloweba.com</a></p>
 </div>
 </body>
 </html>

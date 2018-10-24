@@ -4,7 +4,7 @@
     File Name:     main
     Author:        wyb
     Date:          2018/10/23 0023
-    Description:   web 启动页面
+    Description:   line 启动页面
 """
 import linedb
 import json

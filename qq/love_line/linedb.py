@@ -4,7 +4,7 @@
     File Name:     udb
     Author:        wyb
     Date:          2018/10/23 0023
-    Description:   模拟数据库
+    Description:   数据储存
 """
 import datetime
 
@@ -65,17 +65,20 @@ lines = [
         'title':'大连飞天津',
         'content':'秋秋来天津旅游',
         'href':'#',
-        'date':'2017-5-28'
+        'date':'2017-5-28',
+        'img':'q'
     },{
         'title':'天津飞大连',
         'content':'波波去大连接秋秋毕业',
         'href':'#',
-        'date':'2017-6-22'
+        'date':'2017-6-22',
+        'img':'b'
     },{
         'title':'大连飞天津',
         'content':'一起飞天津，一起毕业',
         'href':'#',
-        'date':'2017-6-27'
+        'date':'2017-6-27',
+        'img':'h'
     }
 ]
 
