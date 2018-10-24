@@ -21,6 +21,7 @@ VERSION = uuid.uuid1()
 @app.route('/get_data')
 def get_data():
     return json.dumps(linedb.get_lines())
+
 @app.route('/')
 def hello_world():
     error = None
