@@ -10,6 +10,8 @@ import linedb
 import json
 import datetime
 import uuid
+import platform
+
 
 from flask import Flask, url_for,request,render_template
 app = Flask(__name__)
@@ -35,10 +37,11 @@ def hello_world():
 def page_not_found(error):
     return render_template('404.html'), 404
 
+def is_linux():
+    return True if ("Linux" in platform.platform()) else False
+
 if __name__ == '__main__':
+    is_debug = False if(is_linux())else True
+    app.run(host='0.0.0.0',port=9501,debug=is_debug)
 
-    app.run(host='0.0.0.0',port=9501,debug=True)
-
-    with app.test_request_context():
-        print(url_for('post/123'))
     ...
