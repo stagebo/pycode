@@ -1,3 +1,11 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+    File Name:     restart.py
+    Author:        wyb
+    Date:          2018/10/23 0023
+    Description:   重启 line web服务。
+"""
 import os
 
 #lines connect to popen_file's read
@@ -16,4 +24,5 @@ def kill_line():
             print(proc, pid)
 if __name__ == "__main__":
     kill_line()
+    os.system("chmod 777 start.sh")
     os.system("bash start.sh")

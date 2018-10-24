@@ -104,6 +104,28 @@ lines = sorted(lines, key=lambda line: datetime.datetime.strptime(line['date'],'
 def get_lines():
     return lines
 
+lines_all = []
+with open('data_all.txt','r',encoding='utf-8') as  lines_data:
+    ls = lines_data.readlines()
+    for l in ls:
+        ds = l.replace('\n','').replace('\n\r','').replace('\r','').split('|')
+        if len(ds) < 3:
+            continue
+        date,title,content,href,img = ds[0:5]
+        item = {
+        'title':title,
+        'content':content,
+        'href':href,
+        'date':date,
+        'img':img
+        }
+        lines_all.append(item)
+
+lines_all = sorted(lines_all, key=lambda line: datetime.datetime.strptime(line['date'],'%Y-%m-%d'))
+
+def get_lines_all():
+    return lines_all
+
 if __name__ == "__main__":
     # print(check_password('qq', '123'))
     for line in lines:
