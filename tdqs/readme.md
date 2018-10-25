@@ -25,6 +25,9 @@
 
 ## 文件：[get_aes.py](get_aes.py)### 标题：> 内容：
 ## 文件：[get_aes27.py](get_aes27.py)### 标题：> 内容：
+## 文件：[md5_rsa.py](md5_rsa.py)### 标题：         md5_rsa
+> 内容：       md5+rsa 混合加密
+
 ## 文件：[merge_in_short.py](merge_in_short.py)### 标题： = ''
 > 内容：  合并单元格的合并信息
 

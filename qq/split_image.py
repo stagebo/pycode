@@ -4,7 +4,7 @@
     File Name:     split_image
     Author:        wyb
     Date:          2018/10/7 0007
-    Description:   
+    Description:   九宫格分割图像
 """
 from PIL import Image
 import uuid

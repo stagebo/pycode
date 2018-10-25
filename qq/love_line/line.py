@@ -11,10 +11,11 @@ import json
 import datetime
 import uuid
 import platform
-
+import handler_admin
 
 from flask import Flask, url_for,request,render_template
 app = Flask(__name__)
+
 
 VERSION = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
 
@@ -33,6 +34,17 @@ def get_lines_all():
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template('404.html'), 404
+
+# @app.before_request
+# def print_request_info():
+#     print("请求地址：" + str(request.path))
+#     print("请求方法：" + str(request.method))
+#     print("---请求headers--start--")
+#     print(str(request.headers).rstrip())
+#     print("---请求headers--end----")
+#     print("GET参数：" + str(request.args))
+#     print("POST参数：" + str(request.form))
+    
 
 
 def is_linux():
