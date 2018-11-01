@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+</head>
+<body>
+    <div>
+        <input type="button" id="btn" value="获取"/>
+        <h1 id="ses">msg</h1>
+    </div>
+    <script>
+        $(function(){
+            $("#btn").click(function () {
+                $.ajax({
+                    url:'/ses_test',
+                    type:'get',
+                    success:function (data) {
+                        console.log(data);
+                        $("#ses").html(data);
+                    },error:function (data) {
+                        $("#ses").html(data);
+                        console.log(data);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

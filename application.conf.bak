@@ -5,6 +5,13 @@ dbname=d
 user=postgres
 pwd=123456
 
+
+[tmysql]
+host=123.123
+port=123
+user=123
+pwd=123
+
 [sms]
 # 短信应用SDK AppID
 appid=1111

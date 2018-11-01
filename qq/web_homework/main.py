@@ -7,14 +7,30 @@
     Description:   web 启动页面
 """
 import udb
-import json
+import json,uuid
 
-from flask import Flask, url_for,request,render_template
+from flask import Flask, url_for,request,render_template,make_response
 app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
     return 'Hello World!'
+
+@app.route('/ses')
+def ses():
+    return render_template('session.html')
+
+@app.route('/ses_test')
+def ses_test():
+    session_id = request.cookies.get("SessionID",None)
+    if session_id:
+        msg = "大爷您是老顾客"
+    else:
+        msg = "大爷您第一次"
+    print(msg,session_id)
+    response = make_response(msg);
+    response.set_cookie('SessionID', str(uuid.uuid1()))
+    return response
 
 # @app.route('/delete/user/<int:post_id>')
 @app.route('/user/delete/<username>',methods=['GET'])
@@ -63,8 +79,6 @@ def page_not_found(error):
 
 if __name__ == '__main__':
 
-    app.run(host='0.0.0.0',port=6001,debug=True)
+    app.run(host='0.0.0.0',port=7001,debug=True)
 
-    with app.test_request_context():
-        print(url_for('post/123'))
     ...

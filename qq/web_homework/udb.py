@@ -21,7 +21,9 @@ users = {
     }
 }
 
-def user_exist(username):
+
+def  user_exist(username):
+
     return True if(username in users.keys())else False
 
 def get_user(username):
@@ -42,17 +44,20 @@ def check_password(username,password):
     users[username]['last_login_time'] = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     return 0
 
-def add_user(username,password):
+
+def add_user(username, password):
     if username in users.keys():
         return False
-    users[username] = {'username': username, 'pwd': password, 'err_count': 0, 'last_login_time': None    }
+    users[username] = {'username': username, 'pwd': password, 'err_count': 0, 'last_login_time': None}
     return True
+
 
 def delete_user(username):
     if username in users.keys():
         del users[username]
         return True
     return False
+
 
 def update_password(username,password):
     if username not in users.keys():
