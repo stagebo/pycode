@@ -7,13 +7,10 @@
     Description:   暴力求解tsp 问题
 """
 
-# 求两点之间的距离
+# 求两点之间的距离 i=(index,x,y)
 def distance(i,j):
-    i,x,y = i
-    i,xx,yy = j
-    dis = (x-xx)**2 + (y-yy)**2
-    dis = dis**0.5
-    return dis
+    m,x,y,n,xx,yy = i,j
+    return ((x-xx)**2 + (y-yy)**2)**0.5
 
 # 求全排列
 def perm(l):
@@ -40,7 +37,6 @@ with open('city.txt','r') as file:
 print('原始数据：',data)
 # 距离邻接矩阵
 dist = [[0 for i in data] for j in data]
-
 
 # 计算距离
 for row in range(len(data)):
