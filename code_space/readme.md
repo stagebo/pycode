@@ -60,6 +60,9 @@
 
 ## 文件：[script.py](script.py)### 标题：> 内容： =
 
+## 文件：[session_test.py](session_test.py)### 标题：         session_test
+> 内容：       测试Session实现
+
 ## 文件：[sms.py](sms.py)### 标题：         sms
 > 内容：       发送短信
 
@@ -69,6 +72,9 @@
 > 内容：       timmer 测试
 
 ## 文件：[tornado_blog.py](tornado_blog.py)### 标题：> 内容：Tornado 测试
+
+## 文件：[vcode.py](vcode.py)### 标题：         vcode
+> 内容：       生成验证码
 
 ## 文件：[write_excel.py](write_excel.py)### 标题：> 内容： 写Excel文件
 

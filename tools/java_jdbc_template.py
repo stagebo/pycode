@@ -15,17 +15,29 @@ import mysqldba
 cf = configparser.ConfigParser()
 cf.read("../application.conf", encoding='utf-8')
 
-mysqldba.opencf(cf)
 dbname = "examsystem"
+dbname = "booksystem"
+
+mysqldba.opencf(cf, dbname)
 packagename = "com.web.sys"
 
 def get_struct(tablename,db):
-    sql = '''select column_name,data_type,character_maximum_length,is_nullable from information_schema.columns
+    sql = '''select column_name,data_type,character_maximum_length,is_nullable,column_comment
+            from information_schema.columns
             where table_schema = '%s'
             and table_name = '%s' ; '''%(db,tablename)
     all = mysqldba.fetch_all(sql)
     return all
 
+def show_table_status():
+    sql = "show table STATUS;"
+    statuses = mysqldba.fetch_all(sql)
+    ret = {}
+    for row in statuses:
+        ret[row['Name']] = row
+    return ret
+tables_comments = show_table_status()
+print(tables_comments)
 def f2upper(s):
     return s[0].upper()+s[1:]
 
@@ -59,6 +71,7 @@ public class {classname} extends BaseModel{{   """
     fields_code = []
     get_set_code = []
     fields_json = []
+    is_start = True
     for row in structs:
         cn = row['column_name']
         dt = row['data_type']
@@ -76,8 +89,12 @@ public class {classname} extends BaseModel{{   """
         get_set_code.append(""" 
     public void set%s(%s %s){ this.%s = %s;  }
         """%(f2upper(cn),jt,cn,cn,cn))
+        if is_start:
+            fields_json.append("""
+            sb.append("\\"%s\\":\\""+ this.get%s() +"\\"");"""%(cn,f2upper(cn)))
+            is_start = False
         fields_json.append("""
-        sb.append("\\"%s\\":\\""+ this.get%s() +"\\"");"""%(cn,f2upper(cn)))
+            sb.append(",\\"%s\\":\\""+ this.get%s() +"\\"");""" % (cn, f2upper(cn)))
     code += ''.join(fields_code)
 
     code += """
@@ -152,20 +169,34 @@ public class {classname}DAO {{
     assert idtype is not None
 
     condition_temp = """
-         if(!T.isNullOrWhite(%s.get%s())){
-                notNulls.add("%s=?");
-                params.add(%s.get%s());
-            }"""
+          if(!T.isNullOrWhite(%s.get%s())){
+              notNulls.add("%s=?");
+              params.add(%s.get%s());
+          }"""
+    insert_condition_temp = """
+          if(!T.isNullOrWhite(%s.get%s())){
+              notNulls.add("%s");
+              notNQ.add("?");
+              params.add(%s.get%s());
+          }"""
     conditions = []
+    insert_conditions = []
     for field in fields:
+        if field in not_null_fields or field == "id":
+            insert_conditions.append(insert_condition_temp % (tablename, f2upper(field), field, tablename, f2upper(field)) + "else return false;")
+
+        else:
+            insert_conditions.append(insert_condition_temp % (tablename, f2upper(field), field, tablename, f2upper(field)))
+
         if field == "id":
             continue
         conditions.append(condition_temp%(tablename,f2upper(field),field,tablename,f2upper(field)))
+
+
     code += f"""
     
     private String find{classname}ByID = "select {','.join(fields)} from {tablename} where id = ?";"""
-    code += f"""
-    private String inser{classname} =  "insert into {tablename} ({','.join([i for i in fields])}) values({','.join(['?' for i in fields])})";  """
+
     code += f"""
     private String update{classname}ByID = "update {tablename} set { ','.join([ '%s = ?'%i for i in fields if i != 'id' ]) } where id = ?";"""
     code += f""" 
@@ -176,8 +207,12 @@ public class {classname}DAO {{
     code += f"""
     
     public boolean insert{classname}({classname} {tablename}) {{
-        int ret = jdbcTemplate.update(inser{classname}, 
-        { ','.join(['%s.get%s()'%(tablename,f2upper(i)) for i in fields]) });
+        List<String> notNulls = new ArrayList<>();
+        List<Object> params = new ArrayList<>();
+        List<String> notNQ = new ArrayList<>();
+        {''.join(insert_conditions)}
+        String sql = String.format("insert into {tablename} (%s) values(%s)",String.join(",",notNulls),String.join(",",notNQ));
+        int ret = jdbcTemplate.update(sql,params.toArray());
         if(ret != 1){{
             return false;
         }}
@@ -205,7 +240,7 @@ public class {classname}DAO {{
         sqlb.append(" where id = ? ");
         params.add({tablename}.getId());
         String sql = sqlb.toString();
-        int ret = jdbcTemplate.update(sql, params);
+        int ret = jdbcTemplate.update(sql, params.toArray());
         if(ret != 1){{
             return false;
         }}
@@ -213,7 +248,7 @@ public class {classname}DAO {{
     }}
     
     public boolean delete{classname}ByID({idtype} id){{
-        int ret = jdbcTemplate.update(update{classname}ByID, id);
+        int ret = jdbcTemplate.update(delete{classname}ByID, id);
         if(ret != 1){{
             return false;
         }}
@@ -272,99 +307,37 @@ def make_service(db,tablename,file):
     nt_cds = []
     for ncn in not_null_fields:
         nt_cds.append(cdtmp%(tablename,f2upper(ncn),ncn))
-    code = f"""
-package {packagename}.controller;
 
-import {packagename}.utils.R;
-import {packagename}.utils.T;
-import {packagename}.model.User;
-import {packagename}.service.RoleService;
-import {packagename}.service.UserService;
+    code = f"""package {packagename}.service;
+
+import {packagename}.dao.{classname}DAO;
+import {packagename}.model.{classname};
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.UUID;
+import java.util.List;
 
-@Controller
-@RequestMapping("/{tablename}")
-public class {classname}Controller {{
-
+@Service
+public class  {classname}Service extends BaseService{{
 
     @Autowired
-    {classname}Service {tablename}Service;
+    private {classname}DAO {tablename}DAO;
 
-    @RequestMapping(value = "/add",method = RequestMethod.POST)
-    public @ResponseBody Object add({classname} {tablename}) {{
+    public boolean insert{classname}({classname} {tablename}) {{ return {tablename}DAO.insert{classname}({tablename});  }}
+
+    public boolean update{classname}({classname} {tablename}){{ return {tablename}DAO.update{classname}({tablename});  }}
+
+    public boolean update{classname}NotNull({classname} {tablename}){{ return {tablename}DAO.update{classname}NotNull({tablename}); }}
+
+    public boolean delete{classname}ByID(String id){{ return {tablename}DAO.delete{classname}ByID(id); }}
+
+    public {classname} find{classname}ByID(String id) {{ return {tablename}DAO.find{classname}ByID(id); }}
+
+    public List<{classname}> find{classname}List() {{ return {tablename}DAO.find{classname}List(); }}
     
-        {','.join(nt_cds)}
-        
-        {ta}.setId(UUID.randomUUID().toString());
-        boolean flag = userService.insertUser(user);
-        if(!flag){{
-            return R.ret(R.ERR);
-        }}
-        return R.ret(R.OK);
-    }}
-    @RequestMapping(value = "/remove",method = RequestMethod.POST)
-    public @ResponseBody Object delete(String id) {{
-        if(T.isNullOrWhite(id)){{
-            return R.ret(R.ERR,"id 不能为空！");
-        }}
-        boolean flag = userService.deleteUser(id);
-        if(!flag){{
-            return R.ret(R.ERR);
-        }}
-        return R.ret(R.OK);
-    }}
-
-    @RequestMapping(value = "/modify",method = RequestMethod.POST)
-    public @ResponseBody Object modify(User user) {{
-        if(T.isNullOrWhite(user.getId())){{
-            return R.ret(R.ERR,"id 不能为空");
-        }}
-        if(T.isNullOrWhite(user.getUsername())){{
-            return R.ret(R.ERR,"username 不能为空");
-        }}
-        if(T.isNullOrWhite(user.getTruename())){{
-            return R.ret(R.ERR,"truename 不能为空");
-        }}
-        if(T.isNullOrWhite(user.getPassword())){{
-            return R.ret(R.ERR,"password 不能为空");
-        }}
-        User ue = userService.findUserByID(user.getId());
-        if(ue == null){{
-            return R.ret(R.ERR,"user 不存在");
-        }}
-        boolean flag = userService.updateUserNotNull(user);
-        if(!flag){{
-            return R.ret(R.ERR);
-        }}
-        return R.ret(R.OK);
-    }}
-
-
-
-    @RequestMapping(value="/count")
-    public @ResponseBody Object getUser(Model model, HttpServletRequest request) {{
-        String username = request.getParameter("username");
-        int count = userService.countUser();
-        return R.ret(count+"");
-    }}
-
-    //配置404页面
-     @RequestMapping("*")
-     public String notFind(){{
-     return "404";
-       }}
-
-
+    public int count{classname}(){{ return {tablename}DAO.count{classname}();    }}
 }}
-    """
+   """
     if file:
         file.write(code)
     return code
@@ -392,21 +365,21 @@ def make_controller(db, tablename, file):
         if is_nullable.upper() == "NO" and cn != 'id':
             not_null_fields.append(cn)
     assert idtype is not None
+
+
     cdtmp = """
-    if(T.isNullOrWhite(%s.get%s())){
+        if(T.isNullOrWhite(%s.get%s())){
             return R.ret(R.ERR,"%s 不能为空！");
         }"""
     nt_cds = []
     for ncn in not_null_fields:
         nt_cds.append(cdtmp % (tablename, f2upper(ncn), ncn))
-    code = f"""
-package {packagename}.controller;
+    code = f"""package {packagename}.controller;
 
 import {packagename}.utils.R;
 import {packagename}.utils.T;
-import {packagename}.model.User;
-import {packagename}.service.RoleService;
-import {packagename}.service.UserService;
+import {packagename}.model.{classname};
+import {packagename}.service.{classname}Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -415,10 +388,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
-@RequestMapping("/{tablename}")
+@RequestMapping("/api/{tablename}")
 public class {classname}Controller {{
 
 
@@ -427,22 +400,21 @@ public class {classname}Controller {{
 
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     public @ResponseBody Object add({classname} {tablename}) {{
-
-        {','.join(nt_cds)}
+        {''.join(nt_cds)}
 
         {tablename}.setId(UUID.randomUUID().toString());
         boolean flag = {tablename}Service.insert{classname}({tablename});
         if(!flag){{
             return R.ret(R.ERR);
         }}
-        return R.ret(R.OK);
+        return R.ret(R.OK, {tablename});
     }}
     @RequestMapping(value = "/remove",method = RequestMethod.POST)
     public @ResponseBody Object delete(String id) {{
         if(T.isNullOrWhite(id)){{
             return R.ret(R.ERR,"id 不能为空！");
         }}
-        boolean flag = {tablename}Service.delete{classname}(id);
+        boolean flag = {tablename}Service.delete{classname}ByID(id);
         if(!flag){{
             return R.ret(R.ERR);
         }}
@@ -455,8 +427,8 @@ public class {classname}Controller {{
             return R.ret(R.ERR,"id 不能为空");
         }}       
         {classname} t{tablename} = {tablename}Service.find{classname}ByID({tablename}.getId());
-        if(ue == null){{
-            return R.ret(R.ERR,"{tablename} 不存在");
+        if(t{tablename} == null){{
+            return R.ret(R.ERR,"查无数据");
         }}
         boolean flag = {tablename}Service.update{classname}NotNull({tablename});
         if(!flag){{
@@ -465,10 +437,26 @@ public class {classname}Controller {{
         return R.ret(R.OK);
     }}
 
+    @RequestMapping(value = "/get",method = RequestMethod.GET)
+    public @ResponseBody Object get({classname} {tablename}) {{
+        if(T.isNullOrWhite({tablename}.getId())){{
+            return R.ret(R.ERR,"id 不能为空");
+        }}
+        {classname} t{tablename} = {tablename}Service.find{classname}ByID({tablename}.getId());
+        if(t{tablename} == null){{
+            return R.ret(R.ERR,"{tablename} 不存在");
+        }}
 
+        return R.ret(R.OK,t{tablename});
+    }}
+    
+    @RequestMapping(value="/list",method = RequestMethod.GET)
+    public @ResponseBody Object list() {{
+        return R.ret(R.OK, {tablename}Service.find{classname}List());
+    }}
 
-    @RequestMapping(value="/count")
-    public @ResponseBody Object getUser() {{
+    @RequestMapping(value="/count",method = RequestMethod.GET)
+    public @ResponseBody Object count() {{
         int count = {tablename}Service.count{classname}();
         Map<String,Object> ret = new HashMap<>();
         ret.put("count",count);
@@ -488,36 +476,150 @@ public class {classname}Controller {{
         file.write(code)
     return code
 
+docs = []
+def make_doc(db,tablename):
+    global docs, tables_comments
+    classname = f2upper(tablename)
 
+    structs = get_struct(tablename, db)
+    idtype = None
+    fields = []
+    not_null_fields = []
+    params = []
+    table_comment = tables_comments[tablename]['Comment']
+    for row in structs:
+        cn = row['column_name']
+        dt = row['data_type']
+        cml = row['character_maximum_length']
+        is_nullable = row['is_nullable']
+        jt = get_java_type(dt)
+
+        if cn == 'id':
+            idtype = jt
+        if not jt:
+            continue
+        fields.append(cn)
+        is_null_text = "不可为空" if is_nullable.upper() == "NO"else "可空"
+        params.append((cn,jt,is_null_text))
+    assert idtype is not None
+
+    pt = """
+                * %s     %s     %s"""
+    ptl = [pt % i for i in params if i != "id"]
+
+    ptu = [pt % (i[0], i[1], '可空') for i in params if i != "id"]
+    ptu.insert(0, "                    * id    String   不可为空")
+
+    doc_tmp = f"""
+----
+## 添加 {table_comment}
+        * 地址：/api/{tablename}/add
+        * 类型：POST
+        * 参数：
+        {''.join(ptl)}
+        * 返回值：基本格式
+
+
+---
+
+## 删除 {table_comment}
+        * 地址：/api/{tablename}/delete
+        * 类型：POST
+        * 参数：
+        {pt%('id',idtype,'不可为空')}
+        * 返回值：基本格式
+
+----
+
+## 查询 {table_comment}
+        * 地址：/api/{tablename}/list
+        * 类型：GET
+        * 参数：无
+        * 返回值：基本格式
+
+----
+
+## 修改 {table_comment}
+        * 地址：/api/{tablename}/modify
+        * 类型：POST
+        * 参数：
+        {pt % ('id', 'int', '不可为空')}
+        * 返回值：基本格式
+
+----
+
+## 查询 {table_comment}
+        * 地址：/api/{tablename}/get
+        * 类型：GET
+        * 参数：
+        {pt%('id',idtype,'不可为空')}
+        * 返回值：
+                * data {tablename} 对象属性
+
+---
+
+## 计数 {table_comment}
+        * 地址：/api/{tablename}/count
+        * 类型：GET
+        * 参数：无
+        * 返回值：
+            * data {table_comment} 对象属性
+    """
+
+
+    docs.append(doc_tmp)
 if __name__ == "__main__":
     tables = [
-        'user',
-        'campus',
-        'college',
-        'course',
-        'exam',
-        'grade',
-        'role',
-        'user_role',
-        'room',
-        'tclass',
-        'test'
+        # 'user',
+        # 'campus',
+        # 'college',
+        # 'course',
+        # 'exam',
+        # 'grade',
+        # 'role',
+        # 'user_role',
+        # 'room',
+        # 'tclass',
+        # 'test'
+
+    ]
+    tables = [
+        'book',
+        'booktype',
+        'lendrecord',
+        'moneyrecord',
+        'publish',
+        # 'role',
+        # 'ruser',
+        # 'user',
+        # 'wuser',
+        # 'user_role',
 
     ]
     for t in tables:
         dir = "D:\\WORK\\2019\\code\\Exam-System\\src\\main\\java\\com\\web\\sys\\"
+        doc_dir = "D:\\WORK\\2019\\code\\Exam-System\\src\\main\\resources\\templates\\doc\\base.html"
+
+
+        dir = 'D:\\WORK\\2019\\code\\BookSystem\\src\\main\\java\\com\\web\\sys\\'
+
+
         mf = dir + "model\\"+f2upper(t)+".java"
         sf = dir + "service\\"+f2upper(t)+"Service.java"
         df = dir + "dao\\"+f2upper(t)+"DAO.java"
         cf = dir + "controller\\" + f2upper(t)+"Controller.java"
-        with open(mf,'w') as file:
+        encode = "GBK"
+        with open(mf,'w',encoding=encode) as file:
             make_bean(t,dbname,file)
-        with open(df,'w') as file:
+        with open(df,'w',encoding=encode) as file:
             make_dao(dbname,t,file)
-        with open(sf,'w') as file:
+        with open(sf,'w',encoding=encode) as file:
             make_service(dbname,t,file)
-        with open(cf,'w') as file:
+        with open(cf,'w',encoding=encode) as file:
             make_controller(dbname,t,file)
+        # make_doc(dbname,t)
         print(t,dir)
-
+    print(''.join(docs))
+    # with open(doc_dir,'w',encoding="utf-8") as file:
+    #     file.write(''.join(docs))
     # print(make_bean('user','sys'))

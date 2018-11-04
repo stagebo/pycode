@@ -13,14 +13,14 @@ def open(host,port,user,pwd,db):
                            db=db,
                            # charset='utf8mb4',
                            cursorclass=pymysql.cursors.DictCursor)
-def opencf(cf):
+def opencf(cf,db='sys'):
     cf.read("../application.conf", encoding='utf-8')
 
     host = cf.get("tmysql", "host")
     port = cf.getint("tmysql", "port")
     user = cf.get("tmysql", "user")
     pwd = cf.get("tmysql", "pwd")
-    open(host, port, user, pwd, 'sys')
+    open(host, port, user, pwd, db)
 
 def execute(sql):
     assert  conn is not None
