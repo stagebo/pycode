@@ -9,7 +9,11 @@
 
 # 求两点之间的距离 i=(index,x,y)
 def distance(i,j):
-    m,x,y,n,xx,yy = i,j
+    # i = (idex,x1,y1)
+    # j = (idx2,x2,y2)
+    #i,j = (idx1,x1,y1,idx2,x2,y2)
+    m,x,y = i
+    n,xx,yy = j
     return ((x-xx)**2 + (y-yy)**2)**0.5
 
 # 求全排列
@@ -59,7 +63,10 @@ paths = perm([i for i in range(len(data))])
 paths_set = []
 for p in paths:
     while p[0] != 0:
+        # 旋转
+        # p = ABCD
         p = p[1:]+[p[0]]
+        # P = BCDA
     p.append(0)
     paths_set.append(tuple(p))
 paths = set(paths_set)
@@ -75,6 +82,7 @@ for path in paths:
         dis_total += distance(data[path[i-1]],data[path[i]])
     total.append((dis_total,path))
 # 找出距离最小值
+print(total)
 min_dis = min(i[0] for i in total)
 min_paths = [p for p in total if p[0] == min_dis]
 print("======最短路径=======")

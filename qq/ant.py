@@ -4,7 +4,7 @@
     File Name:     ant
     Author:        wyb
     Date:          2018/9/23 0023
-    Description:   蚁群优化算法
+    Description:   蚁群优化算法求解TSP问题
 """
 
 import random
