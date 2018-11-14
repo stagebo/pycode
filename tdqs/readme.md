@@ -20,6 +20,9 @@
 ## 文件：[db.py](db.py)### 标题：         pdb
 > 内容：       连接postgresql数据库
 
+## 文件：[decorator_test.py](decorator_test.py)### 标题：         decorator_test
+> 内容：       装饰器测试
+
 ## 文件：[find_merge.py](find_merge.py)### 标题： = ''
 > 内容： 提取合并单元格信息
 
@@ -31,11 +34,20 @@
 ## 文件：[merge_in_short.py](merge_in_short.py)### 标题： = ''
 > 内容：  合并单元格的合并信息
 
+## 文件：[myencode.py](myencode.py)### 标题：         myencode
+> 内容：       
+
+## 文件：[rd_xml.py](rd_xml.py)### 标题：         rd_xml
+> 内容：       
+
 ## 文件：[read_conf.py](read_conf.py)### 标题： = ''
 > 内容： 读取配置文件
 
 ## 文件：[read_shp.py](read_shp.py)### 标题： = ''
 > 内容： 读取shape文件
+
+## 文件：[right_check.py](right_check.py)### 标题：         right_check
+> 内容：       
 
 ## 文件：[transposition_table.py](transposition_table.py)### 标题： = ''
 > 内容：

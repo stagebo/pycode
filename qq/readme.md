@@ -2,7 +2,7 @@
 =====
 
 ## 文件：[ant.py](ant.py)### 标题：         ant
-> 内容：       蚁群优化算法
+> 内容：       蚁群优化算法求解TSP问题
 
 ## 文件：[deep_oil_1.py](deep_oil_1.py)### 标题：         deep_oil_1
 > 内容：       深度优先搜索
@@ -18,6 +18,12 @@
 
 ## 文件：[height_light.py](height_light.py)### 标题：         height_light
 > 内容：       打印各种颜色的样式
+
+## 文件：[inheritance_tsp.py](inheritance_tsp.py)### 标题：         inheritance_tsp
+> 内容：       遗传算法求解TSP问题
+
+## 文件：[inheri_tsp.py](inheri_tsp.py)### 标题：         inheri_tsp
+> 内容：       遗传算法求解TSP问题
 
 ## 文件：[split_image.py](split_image.py)### 标题：         split_image
 > 内容：       九宫格分割图像

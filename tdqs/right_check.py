@@ -126,17 +126,17 @@ def post(api,token):
 def http(api,token,method):
     return get(api,token) if(method=="GET") else post(api,token)
 
+
 sysmg = [
+    ("get_users","GET"),
     ("get_lock_users","GET"),
     ("insert_user","POST"),
     ("insert_user_auth","POST"),
     ("checkpassword","POST"),
     ("update_user","POST"),
     ("get_user_role","GET"),
-    ("get_role","GET"),
     ("get_user_auth","GET"),
     ("update_user_auth","POST"),
-    ("update_user_idtype","POST"),
     ("update__state","POST"),
     ("update_user_lock","POST"),
     ("update_user_password","POST"),
@@ -146,34 +146,35 @@ sysmg = [
 ]
 
 logmg = [
+    ("get_users","GET"),
+    ("get_user_auth","GET"),
     ("get_event_sys","GET"),
     ("get_event_type","GET"),
     ("get_department","GET"),
-    ("delete_all_event","POST"),
     ("get_event_alert","GET"),
     ("get_event_detail_unread","GET"),
     ("get_event_biz","GET"),
     ("get_event_type","GET"),
     ("get_department","GET"),
-    ("delete_all_event","POST"),
-    ("get_event_alert","GET"),
     ("get_event_detail_unread","GET"),
-    ("get_event_type","GET"),
     ("get_event_count_by_user","GET"),
     ("get_event_report_by_time","GET"),
     ("get_event_report_by_type","GET"),
     ("get_event_report_by_user","GET"),
-    ("get_event_report_detail","GET"),
-    ("get_event_report_exception","GET"),
-    ("get_event_report_exception_user","GET")
+    ("update_user_password","POST"),
 ]
 
 pzy = [
     ("set_file_ext","POST"),
-    ("get_file_ext","GET")
+    ("get_file_ext","GET"),
+    ("get_users","GET"),
+    ("get_user_auth","GET"),
+    ("update_user_password","POST"),
+
 ]
 
 czy = [
+    ("update_user_password","POST"),
     ("query_all_grid_list","GET"),
     ("query_element_enum","GET"),
     ("query_map_config_json_by_sid","GET"),
@@ -188,7 +189,9 @@ czy = [
     ("query_files_by_area_module","POST"),
     ("uploads","POST"),
     ("downloads","POST"),
-    ("delete_file_common","POST")
+    ("delete_file_common","POST"),
+    ("get_user_auth","GET"),
+    ("get_users","GET"),
 ]
 
 ls = [set(sysmg),set(logmg),set(pzy),set(czy)]
@@ -196,12 +199,13 @@ ls = [set(sysmg),set(logmg),set(pzy),set(czy)]
 users = ["系统管理员","审计管理员","业务配置员","业务操作员"]
 
 tokens = [
-    "e1b24b8a94576ec574a3de3c08e652ffca022f1067ee468f172dcff931b6f95306fbad",
-    "e1b24b8a94576ec574a3de3c08e652ffca022f1067ee468f1696ece5e8469ef94acdad",
-    "e1b24b8a94576ec574a3de3c08e652ffca022f1067ee468f15abc23d95df02e8ccce6368e7cf5981",
-    "e1b24b8a94576ec574a3de3c08e652ffca022f1067ee468f1693ad21065389f6e4f86a98c2e7cd7046ce9c"
+    "Eee1ZGrmORTlvjf2pYdy3yaBp7zSQhJfL2kuOYtvOSg=",
+    "HBtCkCo2F/IjN4gzKfUjsxXtUJ09VHJabyk1E9r2qUE=",
+    "ia26EOrHYG9CiV989yPRE4BJ9wcE5t7d/m0/vDOFxhQ=",
+    "TwOaaFi33dj9kAEITyko/SrB+aQnajygyr1bxiXelMw="
 ]
-
+# print(get("get_default_options","ia26EOrHYG9CiV989yPRE4BJ9wcE5t7d/m0/vDOFxhQ="))
+# if __name__ == "__main__1":
 if __name__ == "__main__":
     data_dic = {"问题接口":[]}
     data = []
@@ -209,14 +213,16 @@ if __name__ == "__main__":
         for j,token in enumerate(tokens):
             for u,method in ups:
                 ret = http(u,token,method)
-                # if ret != 403:
                 print(u,users[i],users[j], ret)
                 if ret not in data_dic.keys():
                     data_dic[ret] = []
                 data_dic[ret].append([u,users[i],users[j],ret])
                 data.append([u,users[i],users[j],ret])
+                # 以下为问题接口
+                # k = [i[0] for i in ls[j]]
+                # print(u,u in k,k,)
                 if ret == 500 or \
-                        (ret == 200 and i!=j) or \
+                        (ret == 200 and i!=j and u not in [i[0] for i in ls[j]]) or \
                         (ret not in [200,500,401]):
                     data_dic['问题接口'].append([u,users[i],users[j],ret])
     datas = [data]
@@ -225,16 +231,12 @@ if __name__ == "__main__":
         datas.append(data_dic[key])
         sheets.append('详情-%s'%key)
 
-
     for d in datas:
         d.insert(0,['接口名称',"接口所有者",'接口调用者','响应状态码'])
     now = datetime.now()
     file_name = "权限测试%s.xls"%(now.strftime("%Y-%m%d-%H%M%S"))
     create_excel(datas, file_name, sheets=sheets)
 
-# if __name__ == "__main__":
-#     data = [[1,2,3,200],[1,2,3,403],[1,2,3,500]]
-#     create_excel(data, 'hh.xls', sheetname="sheet1")
 
 
 

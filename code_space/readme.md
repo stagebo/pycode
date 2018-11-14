@@ -73,6 +73,9 @@
 
 ## 文件：[tornado_blog.py](tornado_blog.py)### 标题：> 内容：Tornado 测试
 
+## 文件：[tornado_file_access.py](tornado_file_access.py)### 标题：         tornado_file_access
+> 内容：       静态文件访问
+
 ## 文件：[vcode.py](vcode.py)### 标题：         vcode
 > 内容：       生成验证码
 

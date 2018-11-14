@@ -34,11 +34,13 @@ def execute(sql,args, **kwargs):
 def query_dict(sql,args=()):
     try:
         cursor = conn.cursor()
-        cursor.execute(sql, args)
+        sql = cursor.mogrify(sql,args)
+        cursor.execute(sql)
         refdata = [dict((cursor.description[i][0], str(value)) for i, value in enumerate(row)) for row in
                    cursor.fetchall()]
     except psycopg2.Error as e:
         conn.rollback()
+        print("ERROR",sql,args)
         return None
     return refdata
 
@@ -74,7 +76,11 @@ if __name__ == "__main__":
     cur = conn.cursor()
     print('\n'.join(dir(cur)))
     # print(query_dict("select * from system.t_grid_info where f_area_id = %s",[3]))
-    print(query_dict("select * from system.t_grid_info "))
-    print(query_dict("select * from system.t_grid_info where f_grid_id = 'S_6501020000000000000003003' or f_grid_id = %s",("S0001_201809050842131000001",)))
-    print(query_dict("select * from system.t_grid_info where  f_grid_id = 'S_6501020000000000000003003' or f_grid_id = %s",("S0001_201809050842131000001'",)))
-    print(get_sql("select * from system.t_grid_info where  f_grid_id = 'S_6501020000000000000003003' or f_grid_id = %s",("S0001_201809050842131000001'",)))
+    # print(query_dict("select * from system.t_grid_info "))
+    # print(query_dict("select * from system.t_grid_info where f_grid_id = 'S_6501020000000000000003003' or f_grid_id = %s",("S0001_201809050842131000001",)))
+    # print(query_dict("select * from system.t_grid_info where  f_grid_id = 'S_6501020000000000000003003' or f_grid_id = %s",("S0001_201809050842131000001'",)))
+    # print(get_sql("select * from system.t_grid_info where  f_grid_id = 'S_6501020000000000000003003' or f_grid_id = %s",("S0001_201809050842131000001'",)))
+
+    print(query_dict("select * from system.ts_event where f_id = %s or f_id = %s",("119043","119044")))
+    print(query_dict("select * from system.ts_event where f_id = %s or f_id = %s",("119043","a")))
+
