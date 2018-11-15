@@ -4,13 +4,25 @@
     File Name:     right_check
     Author:        WYB
     Date:          2018/11/13 15:41:34
-    Description:   
+    Description:
 """
 
 import requests
 import json
 from datetime import *
 import xlwt
+from PIL import Image
+import pytesseract
+import random
+import hashlib
+from Crypto.PublicKey import RSA
+import base64
+import sys
+
+import cv2
+from matplotlib import pyplot as plt
+from Crypto.Cipher import PKCS1_v1_5 as Cipher_pkcs1_v1_5
+
 
 def check_contain_chinese(check_str):
     '''
@@ -142,7 +154,8 @@ sysmg = [
     ("update_user_password","POST"),
     ("get_department","GET"),
     ("get_default_options","GET"),
-    ("set_default_options","POST")
+    ("set_default_options","POST"),
+    ("event_front","POST")
 ]
 
 logmg = [
@@ -162,6 +175,7 @@ logmg = [
     ("get_event_report_by_type","GET"),
     ("get_event_report_by_user","GET"),
     ("update_user_password","POST"),
+    ("event_front","POST")
 ]
 
 pzy = [
@@ -170,6 +184,7 @@ pzy = [
     ("get_users","GET"),
     ("get_user_auth","GET"),
     ("update_user_password","POST"),
+    ("event_front","POST")
 
 ]
 
@@ -192,21 +207,16 @@ czy = [
     ("delete_file_common","POST"),
     ("get_user_auth","GET"),
     ("get_users","GET"),
+    ("event_front","POST")
 ]
 
 ls = [set(sysmg),set(logmg),set(pzy),set(czy)]
 
 users = ["系统管理员","审计管理员","业务配置员","业务操作员"]
 
-tokens = [
-    "Eee1ZGrmORTlvjf2pYdy3yaBp7zSQhJfL2kuOYtvOSg=",
-    "HBtCkCo2F/IjN4gzKfUjsxXtUJ09VHJabyk1E9r2qUE=",
-    "ia26EOrHYG9CiV989yPRE4BJ9wcE5t7d/m0/vDOFxhQ=",
-    "TwOaaFi33dj9kAEITyko/SrB+aQnajygyr1bxiXelMw="
-]
-# print(get("get_default_options","ia26EOrHYG9CiV989yPRE4BJ9wcE5t7d/m0/vDOFxhQ="))
-# if __name__ == "__main__1":
-if __name__ == "__main__":
+tokens = ['','','','']
+
+def check():
     data_dic = {"问题接口":[]}
     data = []
     for i,ups in enumerate(ls):
@@ -236,6 +246,112 @@ if __name__ == "__main__":
     now = datetime.now()
     file_name = "权限测试%s.xls"%(now.strftime("%Y-%m%d-%H%M%S"))
     create_excel(datas, file_name, sheets=sheets)
+
+
+class verify():
+    def get_img(self,file,url):
+        html = requests.get(url)
+        with open(file, 'wb') as file:
+            file.write(html.content)
+        pass
+    def img2string(self,file):
+
+        # pytesseract.pytesseract.tesseract_cmd = 'E:\\Program Files\\tesseract-ocr\\tesseract-3.0.2\\Tesseract-OCR\\tesseract.exe'
+        # # pytesseract.pytesseract.tesseract_cmd = 'E:\\Program Files\\tesseract-ocr\\tesseract-4.0\\Tesseract-OCR\\tesseract.exe'
+        # text = pytesseract.image_to_string(Image.open(file), lang='eng')
+        # print("result:", text)
+        # return text
+
+        while True:
+            sys.path.append("../code_space")
+            # import img2char
+            # fp = open(file, 'rb')
+            # image_file = Image.open(fp)
+            #
+            # chars = img2char.transform1(image_file)
+            # print(chars)
+            img = cv2.imread(file)
+            dst = cv2.fastNlMeansDenoisingColored(img, None, 10, 10, 7, 21)
+
+            plt.subplot(121), plt.imshow(img)
+            plt.subplot(122), plt.imshow(dst)
+            plt.show()
+            text = input("请输入验证码：")
+            if text != "n":
+                return text
+    def get_ret(self,url):
+        fn = "veid.png"
+        self.get_img(fn,url)
+        return self.img2string(fn)
+
+class enc():
+    def md5(self,str):
+        m1 = hashlib.md5()
+        m1.update(str.encode("utf-8"))
+        token = m1.hexdigest()
+        return token
+
+    def encrypt_rsa(self,public_key, message):
+        cipher = Cipher_pkcs1_v1_5.new(public_key)
+        cipher_text = base64.b64encode(cipher.encrypt(message))
+        return cipher_text
+
+    # rsa解密
+    def decrypt(self,rsakey, encrypt_text):
+        cipher = Cipher_pkcs1_v1_5.new(rsakey)
+        return cipher.decrypt(base64.b64decode(encrypt_text), '')
+
+
+def login(data):
+    ret = requests.post(url("login"), data = data)
+    return  ret.status_code,ret.text
+
+if __name__ == "__main__":
+
+    veid = 904963 #random.randint(9999)+100000 # 904963
+    ur = "http://www.iotqsgf.com:9102/1.0.1/get_vecode?veid=%s"%veid
+    v = verify()
+    ec = enc()
+    pwd = "yTAe/9y8FhAiA2nGCTWexi/Jq/k6PHWSfX17iGcBLh/n1rF36qi33l3+5SQvBWdjP2qNgFUljt6G/lOetEAeDhSUuVWwjd1+UrWHcjIt8lTynZ0ZhyEo3+iJ41I3zAMDjNDvxwEEe+wzJvFRt5osimQDlN0Mq7hK5Zlrn/Nohzs="
+    us = ["qjj10","logmg","configgeng","loadrunner_37"]
+    print(tokens)
+    for i,u in enumerate(us):
+        while True:
+            vcode = v.get_ret(ur)
+            data = {
+                "username": u,
+                "vecode": vcode,
+                "veid": veid,
+                "password": pwd,
+                "app": "0"
+            }
+            ret = login(json.dumps(data))
+            print(u,ret)
+            try:
+                d = json.loads(ret[1])
+                if "sessionToken" in d.keys():
+                    tokens[i] = d["sessionToken"]
+                    break
+            except:
+                print(ret)
+                # sys.exit(1)
+    print(tokens)
+    check()
+    # Test123456
+    # {"username":"a","
+    # password":"FYvwIhCHgzOhhX/1XsOgyYiAfYc4B1izLF5Lruw2bI3HEmKOa05YhMoN7xoRVVXXCA3m2TAw9Eumt2DSKKPPntaauYy8H4clw5P0nI8iUkvnIQtq3gEyx6uAdfiTwJEfYcG4KBFdYPooOvN8dNrPAQjEUBm+gh4fcdAWK0PcyA==",
+    # "vecode":"89kn","veid":"9241189","app":"0"}
+    # pwd = "Test123456"
+    # print(pwd)
+    # md = ec.md5(pwd)
+    # print(md)
+    # pk = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDovH0nOdyAl+FFVg2TKomivn8t3n4PwVSqT/2dF8MBJn3MeXxuLByMf5UavnOSHp0K9ZAz+V/KaBKtgkXUTGdszR7ZzJNGMNHpiz4Rbq5fS2bLUcOREZyvJHDGJgXb0Z0MYlnKTGHkl7Cf0lfypbRVY8sKRd+4eoAv7vlcX3JHLQIDAQAB"
+    # rsacode = ec.encrypt_rsa(md,pk)
+    # print(rsacode)
+
+
+
+
 
 
 
