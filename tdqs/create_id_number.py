@@ -41,7 +41,7 @@ if __name__ == "__main__":
     lines = []
     for i in range(200):
         bri = bri + datetime.timedelta(days=1)
-        idn,idm = create(bri,111),create(bri,102)
+        idn,idm = create(bri,131),create(bri,122)
         idns,idms = ''.join([str(i) for i in idn]),''.join([str(i) for i in idm])
         line = "%s\n%s\n"%(idns,idms)
         print(line,end='')

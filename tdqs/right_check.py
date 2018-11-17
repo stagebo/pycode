@@ -123,20 +123,117 @@ def create_excel(datas, file_name, sheets=[]):
     return True
 
 
-url = 'http://www.iotqsgf.com:9102/1.0.1/{}'.format
+# url = 'http://www.iotqsgf.com:9102/1.0.1/{}'.format
+# url = 'http://172.16.72.53:9102/1.0.1/{}'.format
+url = "https://172.16.72.166/1.0.1/{}".format
+
+def login(data):
+    ret = requests.post(url("login"), data = data,verify=False)
+    return  ret.status_code,ret.text
+
 
 def get(api,token):
-    ret = requests.get(url(api),  headers={"Session-Token": token})
+    ret = requests.get(url(api),  headers={"Session-Token": token},verify=False)
     return ret.status_code
 
 
 def post(api,token):
-    ret = requests.post(url(api), headers={"Session-Token": token})
+    ret = requests.post(url(api), headers={"Session-Token": token},verify=False)
     return  ret.status_code
 
 
 def http(api,token,method):
     return get(api,token) if(method=="GET") else post(api,token)
+
+def check():
+    data_dic = {"问题接口":[]}
+    data = []
+    for i,ups in enumerate(ls):
+        for j,token in enumerate(tokens):
+            for u,method in ups:
+                ret = http(u,token,method)
+                print(u,users[i],users[j], ret)
+                if ret not in data_dic.keys():
+                    data_dic[ret] = []
+                data_dic[ret].append([u,users[i],users[j],ret])
+                data.append([u,users[i],users[j],ret])
+                # 以下为问题接口
+                # k = [i[0] for i in ls[j]]
+                # print(u,u in k,k,)
+                if ret == 500 or \
+                        (ret == 200 and i!=j and u not in [i[0] for i in ls[j]]) or \
+                        (ret not in [200,500,401]):
+                    data_dic['问题接口'].append([u,users[i],users[j],ret])
+    datas = [data]
+    sheets = ['汇总']
+    for key in data_dic.keys():
+        datas.append(data_dic[key])
+        sheets.append('详情-%s'%key)
+
+    for d in datas:
+        d.insert(0,['接口名称',"接口所有者",'接口调用者','响应状态码'])
+    now = datetime.now()
+    file_name = "权限测试%s.xls"%(now.strftime("%Y-%m%d-%H%M%S"))
+    create_excel(datas, file_name, sheets=sheets)
+
+
+def get_img(file,url):
+    html = requests.get(url,verify=False)
+    with open(file, 'wb') as file:
+        file.write(html.content)
+
+
+def img2string(file):
+
+    # pytesseract.pytesseract.tesseract_cmd = 'E:\\Program Files\\tesseract-ocr\\tesseract-3.0.2\\Tesseract-OCR\\tesseract.exe'
+    # # pytesseract.pytesseract.tesseract_cmd = 'E:\\Program Files\\tesseract-ocr\\tesseract-4.0\\Tesseract-OCR\\tesseract.exe'
+    # text = pytesseract.image_to_string(Image.open(file), lang='eng')
+    # print("result:", text)
+    # return text
+
+    while True:
+        sys.path.append("../code_space")
+        img = cv2.imread(file)
+        dst = cv2.fastNlMeansDenoisingColored(img, None, 10, 10, 7, 21)
+
+        # plt.subplot(121), plt.imshow(img)
+        # plt.subplot(122)
+        plt.imshow(dst)
+        plt.show()
+        text = input("请输入验证码：")
+        if text != "n":
+            return text
+
+def get_img_ret(url):
+    fn = "veid.png"
+    get_img(fn,url)
+    return img2string(fn)
+
+def md5(str):
+    m1 = hashlib.md5()
+    m1.update(str.encode("utf-8"))
+    token = m1.hexdigest()
+    return token
+
+
+# RSA 加密
+def encrypt_rsa(msg):
+    md = md5(msg)
+    with open('ghost-public.pem') as f:
+        key = f.read()
+        rsakey = RSA.importKey(key)
+        cipher = Cipher_pkcs1_v1_5.new(rsakey)
+        cipher_text = base64.b64encode(cipher.encrypt(md.encode('utf8')))
+        return cipher_text
+
+
+# rsa解密
+def decrypt(self,rsakey, encrypt_text):
+    cipher = Cipher_pkcs1_v1_5.new(rsakey)
+    return cipher.decrypt(base64.b64decode(encrypt_text), '')
+
+
+
 
 
 sysmg = [
@@ -216,113 +313,24 @@ users = ["系统管理员","审计管理员","业务配置员","业务操作员"
 
 tokens = ['','','','']
 
-def check():
-    data_dic = {"问题接口":[]}
-    data = []
-    for i,ups in enumerate(ls):
-        for j,token in enumerate(tokens):
-            for u,method in ups:
-                ret = http(u,token,method)
-                print(u,users[i],users[j], ret)
-                if ret not in data_dic.keys():
-                    data_dic[ret] = []
-                data_dic[ret].append([u,users[i],users[j],ret])
-                data.append([u,users[i],users[j],ret])
-                # 以下为问题接口
-                # k = [i[0] for i in ls[j]]
-                # print(u,u in k,k,)
-                if ret == 500 or \
-                        (ret == 200 and i!=j and u not in [i[0] for i in ls[j]]) or \
-                        (ret not in [200,500,401]):
-                    data_dic['问题接口'].append([u,users[i],users[j],ret])
-    datas = [data]
-    sheets = ['汇总']
-    for key in data_dic.keys():
-        datas.append(data_dic[key])
-        sheets.append('详情-%s'%key)
-
-    for d in datas:
-        d.insert(0,['接口名称',"接口所有者",'接口调用者','响应状态码'])
-    now = datetime.now()
-    file_name = "权限测试%s.xls"%(now.strftime("%Y-%m%d-%H%M%S"))
-    create_excel(datas, file_name, sheets=sheets)
-
-
-class verify():
-    def get_img(self,file,url):
-        html = requests.get(url)
-        with open(file, 'wb') as file:
-            file.write(html.content)
-        pass
-    def img2string(self,file):
-
-        # pytesseract.pytesseract.tesseract_cmd = 'E:\\Program Files\\tesseract-ocr\\tesseract-3.0.2\\Tesseract-OCR\\tesseract.exe'
-        # # pytesseract.pytesseract.tesseract_cmd = 'E:\\Program Files\\tesseract-ocr\\tesseract-4.0\\Tesseract-OCR\\tesseract.exe'
-        # text = pytesseract.image_to_string(Image.open(file), lang='eng')
-        # print("result:", text)
-        # return text
-
-        while True:
-            sys.path.append("../code_space")
-            # import img2char
-            # fp = open(file, 'rb')
-            # image_file = Image.open(fp)
-            #
-            # chars = img2char.transform1(image_file)
-            # print(chars)
-            img = cv2.imread(file)
-            dst = cv2.fastNlMeansDenoisingColored(img, None, 10, 10, 7, 21)
-
-            plt.subplot(121), plt.imshow(img)
-            plt.subplot(122), plt.imshow(dst)
-            plt.show()
-            text = input("请输入验证码：")
-            if text != "n":
-                return text
-    def get_ret(self,url):
-        fn = "veid.png"
-        self.get_img(fn,url)
-        return self.img2string(fn)
-
-class enc():
-    def md5(self,str):
-        m1 = hashlib.md5()
-        m1.update(str.encode("utf-8"))
-        token = m1.hexdigest()
-        return token
-
-    def encrypt_rsa(self,public_key, message):
-        cipher = Cipher_pkcs1_v1_5.new(public_key)
-        cipher_text = base64.b64encode(cipher.encrypt(message))
-        return cipher_text
-
-    # rsa解密
-    def decrypt(self,rsakey, encrypt_text):
-        cipher = Cipher_pkcs1_v1_5.new(rsakey)
-        return cipher.decrypt(base64.b64decode(encrypt_text), '')
-
-
-def login(data):
-    ret = requests.post(url("login"), data = data)
-    return  ret.status_code,ret.text
-
+# print(post("update__state","K6WidUPW+Fqprbv+6LeJ095nH6Wftt7L+q94RmOahwQ="))
 if __name__ == "__main__":
-
-    veid = 904963 #random.randint(9999)+100000 # 904963
-    ur = "http://www.iotqsgf.com:9102/1.0.1/get_vecode?veid=%s"%veid
-    v = verify()
-    ec = enc()
-    pwd = "yTAe/9y8FhAiA2nGCTWexi/Jq/k6PHWSfX17iGcBLh/n1rF36qi33l3+5SQvBWdjP2qNgFUljt6G/lOetEAeDhSUuVWwjd1+UrWHcjIt8lTynZ0ZhyEo3+iJ41I3zAMDjNDvxwEEe+wzJvFRt5osimQDlN0Mq7hK5Zlrn/Nohzs="
-    us = ["qjj10","logmg","configgeng","loadrunner_37"]
-    print(tokens)
+    veid = "9989" #random.randint(9999)+100000 # 904963
+    ur = url("get_vecode?veid=%s"%veid)
+    us = [
+        ("wsmg","Test1234"),
+        ("wlogmg","Test1234"),
+        ("wpzy","Test1234"),
+        ("wczy","Test1234")
+    ]
     for i,u in enumerate(us):
         while True:
-            vcode = v.get_ret(ur)
+            # vcode = get_img_ret(ur)
             data = {
-                "username": u,
-                "vecode": vcode,
+                "username": u[0],
+                "vecode": "9989",#vcode,
                 "veid": veid,
-                "password": pwd,
+                "password": encrypt_rsa(u[1]).decode(),
                 "app": "0"
             }
             ret = login(json.dumps(data))
@@ -337,17 +345,10 @@ if __name__ == "__main__":
                 # sys.exit(1)
     print(tokens)
     check()
-    # Test123456
-    # {"username":"a","
-    # password":"FYvwIhCHgzOhhX/1XsOgyYiAfYc4B1izLF5Lruw2bI3HEmKOa05YhMoN7xoRVVXXCA3m2TAw9Eumt2DSKKPPntaauYy8H4clw5P0nI8iUkvnIQtq3gEyx6uAdfiTwJEfYcG4KBFdYPooOvN8dNrPAQjEUBm+gh4fcdAWK0PcyA==",
-    # "vecode":"89kn","veid":"9241189","app":"0"}
-    # pwd = "Test123456"
-    # print(pwd)
-    # md = ec.md5(pwd)
-    # print(md)
-    # pk = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDovH0nOdyAl+FFVg2TKomivn8t3n4PwVSqT/2dF8MBJn3MeXxuLByMf5UavnOSHp0K9ZAz+V/KaBKtgkXUTGdszR7ZzJNGMNHpiz4Rbq5fS2bLUcOREZyvJHDGJgXb0Z0MYlnKTGHkl7Cf0lfypbRVY8sKRd+4eoAv7vlcX3JHLQIDAQAB"
-    # rsacode = ec.encrypt_rsa(md,pk)
-    # print(rsacode)
+
+
+
+
 
 
 
