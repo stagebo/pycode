@@ -288,7 +288,9 @@ logmg = [
     ("get_event_report_by_user","GET"),
     ("update_user_password","POST"),
     ("event_front","POST"),
-    ("event_update_isread","POST")
+    ("event_update_isread","POST"),
+    ("checkpassword","POST"),
+
 ]
 
 pzy = [
@@ -297,7 +299,8 @@ pzy = [
     ("get_users","GET"),
     ("get_user_auth","GET"),
     ("update_user_password","POST"),
-    ("event_front","POST")
+    ("event_front","POST"),
+    ("checkpassword","POST"),
 ]
 
 czy = [
@@ -319,7 +322,8 @@ czy = [
     ("delete_file_common","POST"),
     ("get_user_auth","GET"),
     ("get_users","GET"),
-    ("event_front","POST")
+    ("event_front","POST"),
+    ("checkpassword","POST"),
 ]
 
 ls = [set(sysmg),set(logmg),set(pzy),set(czy)]
