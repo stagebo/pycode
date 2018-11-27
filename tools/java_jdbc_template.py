@@ -10,22 +10,30 @@
 import pymysql
 import configparser
 import sys
+import os
 sys.path.append('../')
 import mysqldba
 cf = configparser.ConfigParser()
 cf.read("../application.conf", encoding='utf-8')
 
-dbname = "examsystem"
-dbname = "booksystem"
+# dbname = "examsystem"
+# dbname = "booksystem"
+# dbname = "expresssystem"
+dbname = "reportsystem"
 
 mysqldba.opencf(cf, dbname)
 packagename = "com.web.sys"
 
 def get_struct(tablename,db):
-    sql = '''select column_name,data_type,character_maximum_length,is_nullable,column_comment
+    sql = '''select column_name as column_name
+    ,data_type as data_type
+    ,character_maximum_length as character_maximum_length
+    ,is_nullable as is_nullable
+    ,column_comment as column_comment
             from information_schema.columns
             where table_schema = '%s'
             and table_name = '%s' ; '''%(db,tablename)
+    # print(sql)
     all = mysqldba.fetch_all(sql)
     return all
 
@@ -36,8 +44,7 @@ def show_table_status():
     for row in statuses:
         ret[row['Name']] = row
     return ret
-tables_comments = show_table_status()
-print(tables_comments)
+
 def f2upper(s):
     return s[0].upper()+s[1:]
 
@@ -53,12 +60,13 @@ def get_java_type(dt):
         jt = "long"
     elif dt in ['double','float','decimal']:
         jt = 'double'
-    elif dt in ["blob"]:
-        jt = None
-
+    elif dt in ["blob","longblob"]:
+        jt = "Byte[]"
     else:
         raise Exception("type [%s] not found"%dt)
     return jt
+
+
 def make_bean(tablename,dbname,file=None):
     classname = f2upper(tablename)
     structs = get_struct(tablename,dbname)
@@ -73,6 +81,7 @@ public class {classname} extends BaseModel{{   """
     fields_json = []
     is_start = True
     for row in structs:
+        print(row)
         cn = row['column_name']
         dt = row['data_type']
         cml = row['character_maximum_length']
@@ -145,6 +154,7 @@ public class {classname}DAO {{
 
 
     structs = get_struct(tablename, dbname)
+    # print(structs)
     idtype = None
     fields = []
     not_null_fields = []
@@ -568,42 +578,41 @@ def make_doc(db,tablename):
 
 
     docs.append(doc_tmp)
-if __name__ == "__main__":
-    tables = [
-        # 'user',
-        # 'campus',
-        # 'college',
-        # 'course',
-        # 'exam',
-        # 'grade',
-        # 'role',
-        # 'user_role',
-        # 'room',
-        # 'tclass',
-        # 'test'
 
-    ]
+tables_comments = show_table_status()
+print(tables_comments)
+if __name__ == "__main__":
+
+
+
     tables = [
-        'book',
-        'booktype',
-        'lendrecord',
-        'moneyrecord',
-        'publish',
+        # 'book',
+        # 'booktype',
+        # 'lendrecord',
+        # 'moneyrecord',
+        # 'publish',
         # 'role',
         # 'ruser',
         # 'user',
         # 'wuser',
         # 'user_role',
-
+        # "attachment",
+        # "order",
+        # "station",
+        # "user_tclass"
+        # "area",
+        # "report",
+        # "informant",
+        # "informanter",
+        # "informantee",
+        "repeat"
     ]
     for t in tables:
-        dir = "D:\\WORK\\2019\\code\\Exam-System\\src\\main\\java\\com\\web\\sys\\"
-        doc_dir = "D:\\WORK\\2019\\code\\Exam-System\\src\\main\\resources\\templates\\doc\\base.html"
+        # dir = "src\\main\\java\\com\\web\\sys\\"
+        # doc_dir = "src\\main\\resources\\templates\\doc\\base.html"
+        # dir = 'src\\main\\java\\com\\web\\sys\\'
 
-
-        dir = 'D:\\WORK\\2019\\code\\BookSystem\\src\\main\\java\\com\\web\\sys\\'
-
-
+        dir = ""
         mf = dir + "model\\"+f2upper(t)+".java"
         sf = dir + "service\\"+f2upper(t)+"Service.java"
         df = dir + "dao\\"+f2upper(t)+"DAO.java"

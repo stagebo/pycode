@@ -20,6 +20,7 @@ def opencf(cf,db='sys'):
     port = cf.getint("tmysql", "port")
     user = cf.get("tmysql", "user")
     pwd = cf.get("tmysql", "pwd")
+    print(host, port, user, pwd, db)
     open(host, port, user, pwd, db)
 
 def execute(sql):

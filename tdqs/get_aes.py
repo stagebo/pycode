@@ -21,7 +21,7 @@ def decrypt(text):
      return decrypt_msg.decode('utf-8')
 
 def encrypt2(text):
-     PADDING='\0'
+     PADDING = '\0'
      pad_it = lambda s: s+(16 - len(s)%16)*PADDING
      key ='1234567890000000'
      iv =  key
@@ -34,19 +34,20 @@ def decrypt2(text):
      # key = 'c32ad1415f6c89fee76d8457c31efb4b'
      iv =  '1234567890000000'
      msg = binascii.a2b_hex(text)
-     cipher2 = AES.new(key,AES.MODE_CBC,iv)
+     cipher2 = AES.new(b'1234567890000000',AES.MODE_CBC,b'1234567890000000')
      decrypt_msg = cipher2.decrypt(msg)
      return decrypt_msg.decode('utf-8')
 
 
 if __name__ == '__main__':
-    if len(sys.argv)<2:
-            print("get_aes -e(-ee)[-d(-dd)] text")
-            sys.exit(-1)
+    # if len(sys.argv)<2:
+    #         print("get_aes -e(-ee)[-d(-dd)] text")
+    #         sys.exit(-1)
+    # cmd  = sys.argv[1]
+    # text = sys.argv[2]
 
-    cmd  = sys.argv[1]
-    text = sys.argv[2]
-
+    cmd  = '-ee'
+    text = '123456'
     if cmd == '-e' and text !='':
          msg = encrypt(text)
          print('加密后的值为：',msg)

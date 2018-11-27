@@ -11,7 +11,7 @@ import requests,json,hashlib
 import xlwt
 from datetime import *
 import traceback
-
+# import docx
 url = 'http://www.iotqsgf.com:9102/1.0.1/{}'.format
 # url = 'http://172.16.72.53:9102/1.0.1/{}'.format
 
@@ -166,6 +166,11 @@ class YBS():
 
 if __name__ == "__main__":
     # sys.setdefaultencoding('utf-8')
+    '''
+    数据结构
+    培训->项目->
+        
+    '''
 
     file = open("ybs_%s.log"%datetime.now().strftime("%Y%m%d%H%M%S"),'w',encoding='utf8')
     username = "15085927614"
@@ -180,7 +185,7 @@ if __name__ == "__main__":
 
     tid_list = [i['id'] for i in train_list['data']['list']]
     print(tid_list)
-    idx = 1
+
     ans_data = [['题目','答案',"A","B","C","D","E"]]
     for train in train_list['data']['list']:
     # for tid in tid_list:
@@ -190,6 +195,10 @@ if __name__ == "__main__":
         for project in course_info_list['data']['list']:
             pid = project['id']
             pname = project['projectName']
+            # file.write("=====================================================================")
+            # file.write("\n\n%s\n\n" % pname)
+
+            pidx = 1
             for course in project['courseList']:
                 try:
                     cid = course['id']
@@ -197,21 +206,26 @@ if __name__ == "__main__":
                     cfid = course['courseFieldID']
                     # print(course)
 
+                    ## 通过测试
                     # ret = ybs.pass_exam(uid,tid,pid,cid)
-
                     # msg = "%s||%s||%s||%s\r\n"%(tname,pname,cname,str(ret))
                     # print(msg)
                     # file.write(msg)
+                    # file = open('%s.txt'%pname,'w',encoding='utf8')
 
+                    ## 提取答案
+                    file.write(" %s 【%s】\n" % (pidx,cname))
+                    pidx += 1
+                    idx = 1
                     ans_ret = ybs.get_answer(cfid)
                     ans_ret = ans_ret[:-2]
                     ans_ret = ans_ret[ans_ret.find("(")+1:]
                     ans_ret = json.loads(ans_ret)
                     for question in ans_ret['data']:
-                        ana = question['ana']
-                        stem = question['stem']
-                        ans = question['ans']
-                        opts = question['opts']
+                        ana = question['ana'] # 解释
+                        stem = question['stem'] # 题目
+                        ans = question['ans'] # 答案
+                        opts = question['opts'] # 选项
                         qs_str = "%s||%s||%s\r\n"%(ana,ans,'$$'.join(["##".join([i['opt'],i['ctnt']]) for i in opts]))
                         d = [ana,ans] + [i['ctnt'] for i in opts]
                         ans_data.append(d)

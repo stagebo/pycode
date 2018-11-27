@@ -8,10 +8,11 @@
 """
 import json
 import requests
+import sys,io
 
 url = 'http://exam.urmyall.xyz:9701/{}'.format
 
-# url = 'http://localhost:9701/{}'.format
+url = 'http://localhost:9701/{}'.format
 def token(func):
     def wapper(*args, **kwargs):
         if args[0].token is None:
@@ -54,13 +55,34 @@ class Test:
             pass
         return text, ret.status_code
 
+    def post_file(self,api,data, files={}):
+        print('url:  %s    ===================================================================================' % url)
+        session = requests.session()
+        result = session.request('post', url(api),
+                                 params=None, data=data, headers=None, cookies=None, files=files,
+                                 auth=None, timeout=5, allow_redirects=True, proxies=None,
+                                 hooks=None, stream=None, verify=None, cert=None, json=None)
+
+        try:
+            text = json.load(result.text)
+        except:
+            pass
+        return result.text, result.status_code
 
 if __name__ == "__main__":
+    # sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='GBK')
     # print(Test().get('query_t')) # ERROR ID
     T = Test()
-    # T.login()
+    T.login()
     # print(T.get('api/log/islogin'))
     # print(T.post('api/log/logout'))
+    print(T.post("api/sms/send",data={"examid":"dca520c4-64d7-427b-af3b-adb385174362"}))
+    # print(T.post('api/exam/bindfile',data={"examid":"4091b56e-01b6-490f-9c57-f30720f5667c","fileid":"8d3bb348-3609-4bf1-93da-256e29d298a2"}))
+    # print(T.get('api/exam/files',examid = "4091b56e-01b6-490f-9c57-f30720f5667c"))
+
+    # files = {"file": open('F:\\Users\\WYB\\Desktop\\经济社会信息.xls', 'rb')}
+    # print(T.post_file('api/common/upload', data={}, files=files))
+
     # print(T.get('api/log/islogin'))
     # print(T.post('api/sys/loginuser'))
     #
@@ -84,7 +106,7 @@ if __name__ == "__main__":
     # print(T.post('api/grade/modify', data={"id":"89f50cb3-9510-46b2-9bbe-c7af423f9f1d","collegeid":"13c01153-6c48-4c16-a856-899d528a46f6","name":"2019级"}))
     # print(T.post('api/room/modify', data={"id":"587b6100-3aa7-4d37-a694-06fd8cd7fb7d","address":"24楼"}))
     # print(T.post('api/tclass/modify', data={"id":"99536e78-f5b5-45c7-b50b-8109b910753a","gradeid":"9f3ecf03-980b-4202-9c36-7f0ad891b50f","collegeid":"79842b7a-788f-4845-8acb-b091e190adfa","name":"自动化二班"}))
-    print(T.post('api/exam/modify', data={"id":"d52f38c7-4d37-405c-8e1b-af6ad78bad1c", "gradeid":"9f3ecf03-980b-4202-9c36-7f0ad891b50f",  "collegeid":"79842b7a-788f-4845-8acb-b091e190adfa","name":"自动化二班", "time":"2020-12-23 12:23"}))
+    # print(T.post('api/exam/modify', data={"id":"d52f38c7-4d37-405c-8e1b-af6ad78bad1c", "gradeid":"9f3ecf03-980b-4202-9c36-7f0ad891b50f",  "collegeid":"79842b7a-788f-4845-8acb-b091e190adfa","name":"自动化二班", "time":"2020-12-23 12:23"}))
 
     # print(T.post('api/user/remove',data={"id":"7769d0a6-1fc9-45f9-9add-e68421d54436"}))
     # print(T.post('api/role/remove', data={"id": "1f560bb7-2e7e-46a7-80f4-f193465498f2"}))

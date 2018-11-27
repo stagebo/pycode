@@ -18,11 +18,16 @@ import hashlib
 from Crypto.PublicKey import RSA
 import base64
 import sys
-
+import traceback
 import cv2
 from matplotlib import pyplot as plt
 from Crypto.Cipher import PKCS1_v1_5 as Cipher_pkcs1_v1_5
+import sys
+from Crypto.Cipher import AES
+from Crypto import Random
+import binascii
 
+import AES_CBC as ac
 
 def check_contain_chinese(check_str):
     '''
@@ -123,13 +128,14 @@ def create_excel(datas, file_name, sheets=[]):
     return True
 
 
-# url = 'http://www.iotqsgf.com:9102/1.0.1/{}'.format
+url = 'http://www.iotqsgf.com:9102/1.0.1/{}'.format
 # url = 'http://172.16.72.53:9102/1.0.1/{}'.format
-url = "https://172.16.72.166/1.0.1/{}".format
+# url = "https://172.16.72.166/1.0.1/{}".format
+url = "https://192.168.91.140/1.0.1/{}".format
 
 def login(data):
     ret = requests.post(url("login"), data = data,verify=False)
-    return  ret.status_code,ret.text
+    return ret.status_code,ret.text
 
 
 def get(api,token):
@@ -227,6 +233,15 @@ def encrypt_rsa(msg):
         return cipher_text
 
 
+def encrypt2(text):
+    PADDING = '\0'
+    pad_it = lambda s: s + (16 - len(s) % 16) * PADDING
+    key = 'tdqsgf8888!@#$%^'
+    iv = key
+    cipher1 = AES.new(key, AES.MODE_CBC, iv)
+    encrypt_msg = cipher1.encrypt(pad_it(text))
+    return binascii.b2a_hex(encrypt_msg).decode()
+
 # rsa解密
 def decrypt(self,rsakey, encrypt_text):
     cipher = Cipher_pkcs1_v1_5.new(rsakey)
@@ -246,7 +261,7 @@ sysmg = [
     ("get_user_role","GET"),
     ("get_user_auth","GET"),
     ("update_user_auth","POST"),
-    ("update__state","POST"),
+    # ("update__state","POST"),
     ("update_user_lock","POST"),
     ("update_user_password","POST"),
     ("get_department","GET"),
@@ -272,7 +287,8 @@ logmg = [
     ("get_event_report_by_type","GET"),
     ("get_event_report_by_user","GET"),
     ("update_user_password","POST"),
-    ("event_front","POST")
+    ("event_front","POST"),
+    ("event_update_isread","POST")
 ]
 
 pzy = [
@@ -282,7 +298,6 @@ pzy = [
     ("get_user_auth","GET"),
     ("update_user_password","POST"),
     ("event_front","POST")
-
 ]
 
 czy = [
@@ -314,35 +329,53 @@ users = ["系统管理员","审计管理员","业务配置员","业务操作员"
 tokens = ['','','','']
 
 # print(post("update__state","K6WidUPW+Fqprbv+6LeJ095nH6Wftt7L+q94RmOahwQ="))
+# print(encrypt_rsa("Test123456"))
+# print(encrypt2('123'))
+
 if __name__ == "__main__":
     veid = "9989" #random.randint(9999)+100000 # 904963
     ur = url("get_vecode?veid=%s"%veid)
     us = [
-        ("wsmg","Test1234"),
-        ("wlogmg","Test1234"),
-        ("wpzy","Test1234"),
-        ("wczy","Test1234")
+        ("aqsmg","Test123456"),
+        ("aqsj","Test123456"),
+        ("aqpzy","Test123456"),
+        ("aqczy","Test123456")
     ]
     for i,u in enumerate(us):
         while True:
             # vcode = get_img_ret(ur)
             data = {
                 "username": u[0],
-                "vecode": "9989",#vcode,
+                "vecode": veid,#vcode,
                 "veid": veid,
                 "password": encrypt_rsa(u[1]).decode(),
                 "app": "0"
             }
-            ret = login(json.dumps(data))
+
+            data = json.dumps(data)
+            print("登陆前加密前：",data)
+
+            endata = ac.encode(data)
+            # print(data)
+            # data = encrypt2(data)
+            print("登陆前加密值：",endata)
+            ret = login(json.dumps({"data":endata}))
             print(u,ret)
             try:
                 d = json.loads(ret[1])
-                if "sessionToken" in d.keys():
-                    tokens[i] = d["sessionToken"]
+                print("login_raw_data:",d)
+                data = d['result_m']
+                dd = ac.decode(data)
+                print("返回值解密后：",dd)
+                ret_data = eval(dd)
+                print("返回值解密后-JSON:",ret_data)
+                if "sessionToken" in ret_data.keys():
+                    tokens[i] = ret_data["sessionToken"]
                     break
             except:
-                print(ret)
-                # sys.exit(1)
+                traceback.print_exc()
+                print("ERROR",ret)
+                sys.exit(1)
     print(tokens)
     check()
 

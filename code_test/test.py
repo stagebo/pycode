@@ -19,31 +19,12 @@ __mtime__ = '2018/6/29'
                   ┃┫┫  ┃┫┫
                   ┗┻┛  ┗┻┛
 """
-def test():return 123
-
-class T():
-    def __init__(self,a,b):
-        self.a = a
-        self.b = b
-    def pt(self):
-        print(self.a,self.b)
+import base64
 if __name__ == "__main__":
-    t1 = T(1,2)
-    t1.pt()
+    token = "K6WidUPW+Fqprbv+6LeJ095nH6Wftt7L+q94RmOahwQ="
+    print(token)
+    tb = base64.b64decode(token)
+    print(tb)
+    tbs = tb.decode()
+    print(tbs)
 
-    # t2 = T()
-    # t2.pt()
-    print(test())
-    print("main")
-    s = """
-    a
-    b
-    c
-    """
-    print(s)
-    a = s.replace('\n','').replace('\r','').replace('\r\n','').replace(' ','')
-    print(a)
-
-    import enum
-
-    print(enum)
