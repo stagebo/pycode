@@ -20,6 +20,7 @@ cf.read("../application.conf", encoding='utf-8')
 # dbname = "booksystem"
 # dbname = "expresssystem"
 dbname = "reportsystem"
+dbname = "sportsystem"
 
 mysqldba.opencf(cf, dbname)
 packagename = "com.web.sys"
@@ -605,7 +606,10 @@ if __name__ == "__main__":
         # "informant",
         # "informanter",
         # "informantee",
-        "repeat"
+        # "repeat",
+        "orders",
+        "project",
+        "comment",
     ]
     for t in tables:
         # dir = "src\\main\\java\\com\\web\\sys\\"
