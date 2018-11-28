@@ -56,6 +56,7 @@ def check():
         if cal(item) <= 0:  # 如果有分类错误的
             flag = True  # 将flag设为True
             update(item)  # 用误分类点更新参数
+    print("中途: w: " + str(w) + "b: " + str(b))  # 输出达到正确结果时参数的值
     if not flag:  # 如果没有分类错误的点了
         print("最终结果: w: " + str(w) + "b: " + str(b))  # 输出达到正确结果时参数的值
     return flag  # 如果已正确分类则返回True,否则返回False
@@ -66,10 +67,11 @@ if __name__ == "__main__":
         if not check(): break  # 如果已正确分类，则结束迭代
     # 以下代码是将迭代过程可视化
     # 首先建立我们想要做成动画的图像figure, 坐标轴axis,和plot element
-    # fig = plt.figure()
-    # ax = plt.axes(xlim=(0, 2), ylim=(-2, 2))
-    # line, = ax.plot([], [], 'g', lw=2)  # 画一条线
-    # label = ax.text([], [], '')
+    fig = plt.figure()
+    ax = plt.axes(xlim=(0, 2), ylim=(-2, 2))
+    line, = ax.plot([], [], 'g', lw=2)  # 画一条线
+    label = ax.text([], [], '')
+
 
 
     def init():
@@ -97,6 +99,7 @@ if __name__ == "__main__":
         if w[1] == 0: return line, label
         # 因为图中坐标上下限为-6~6，所以我们在横坐标为-7和7的两个点之间画一条线就够了，这里代码中的xi,yi其实是原理中的x1,x2
         x1 = -7
+        # y1 * w1 + x1 * w0 + b = 0
         y1 = -(b + w[0] * x1) / w[1]
         x2 = 7
         y2 = -(b + w[0] * x2) / w[1]
@@ -107,8 +110,8 @@ if __name__ == "__main__":
         label.set_position([x1, y1])
         return line, label
 
-
+    print(training_set)
     print("参数w,b更新过程：", history)
-    # anim = animation.FuncAnimation(fig, animate, init_func=init, frames=len(history), interval=1000, repeat=True,
-    #                                blit=True)
-    # plt.show()
+    anim = animation.FuncAnimation(fig, animate, init_func=init, frames=len(history), interval=1000, repeat=True,
+                                   blit=True)
+    plt.show()
