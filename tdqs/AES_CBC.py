@@ -19,26 +19,30 @@ import sys
 from Crypto.Cipher import AES
 import base64
 
-def encode(text, key = bytes("tdqsgf8888!@#$%^", encoding='utf8'),iv=bytes("tdqsgf8888!@#$%^", encoding='utf8')):
+
+def aes_encode(text, key, iv):
+    key = bytes(key, encoding='utf8')
+    iv = bytes(iv, encoding='utf8')
     cipher = AES.new(key, AES.MODE_CBC, iv)
     PADDING = '\0'
     pad_it = lambda s: s + (16 - len(s) % 16) * PADDING
-    AES_code = bytes(pad_it(text),encoding='utf8')
+    AES_code = bytes(pad_it(text), encoding='utf8')
     code = cipher.encrypt(AES_code)
-    base64_text = str((base64.encodebytes(code)).decode()).replace('\n','')
+    base64_text = str((base64.encodebytes(code)).decode()).replace('\n', '')
     return base64_text
 
 
-def decode(text, key = bytes("tdqsgf8888!@#$%^", encoding='utf8'),iv=bytes("tdqsgf8888!@#$%^", encoding='utf8')):
+def aes_decode(text, key, iv):
+    key = bytes(key, encoding='utf8')
+    iv = bytes(iv, encoding='utf8')
     cipher = AES.new(key, AES.MODE_CBC, iv)
     textb = base64.b64decode(text.encode('utf-8'))
     decrypted_text = cipher.decrypt(textb).decode('utf-8')
     decrypted_code = decrypted_text.rstrip('\0')
     return decrypted_code
 
-
-key = bytes("tdqsgf8888!@#$%^",encoding='utf8')
-iv = bytes("tdqsgf8888!@#$%^",encoding='utf8')
-en = encode("123456",key,iv)
+key = "tdqsgf8888!@#$%^"
+iv = "tdqsgf8888!@#$%^"
+en = aes_encode("123456",key,iv)
 print(en)
-print(decode(en,key,iv))
+print(aes_decode(en,key,iv))
